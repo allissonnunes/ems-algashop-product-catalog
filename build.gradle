@@ -19,6 +19,7 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+    mockitoAgent
 }
 
 repositories {
@@ -32,12 +33,18 @@ ext {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
     testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-verifier'
+    testImplementation 'io.rest-assured:spring-mock-mvc:6.0.0'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    mockitoAgent("org.mockito:mockito-core") {
+        transitive = false
+    }
 }
 
 dependencyManagement {
@@ -47,6 +54,7 @@ dependencyManagement {
 }
 
 contracts {
+    packageWithBaseClasses = "br.dev.allissonnunes.algashop.product.catalog.contract.base"
 }
 
 tasks.named('contractTest') {
@@ -55,4 +63,9 @@ tasks.named('contractTest') {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+test
+contractTest {
+    jvmArgs += "-javaagent:${configurations.mockitoAgent.asPath}"
 }
