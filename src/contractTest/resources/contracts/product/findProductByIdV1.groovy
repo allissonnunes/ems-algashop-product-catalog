@@ -6,29 +6,29 @@ Contract.make {
     request {
         method GET()
         headers {
-            accept 'application/json'
+            accept(applicationJson())
         }
-        url("/api/v1/products/019bb3a0-5c32-7685-b712-9dd8373525d3")
+        url('/api/v1/products/019bb3a0-5c32-7685-b712-9dd8373525d3')
     }
     response {
-        status 200
+        status OK()
         headers {
-            contentType 'application/json'
+            contentType(applicationJson())
         }
         body([
                 id          : fromRequest().path(3),
                 addedAt     : anyIso8601WithOffset(),
-                name        : "Notebook X11",
-                brand       : "Deep Diver",
+                name       : 'Notebook X11',
+                brand      : 'Deep Diver',
                 regularPrice: 1500.00,
                 salePrice   : 1000.00,
-                inStock : true,
+                inStock    : true,
                 enabled     : true,
-                category: [
+                category   : [
                         id  : anyUuid(),
-                        name: "Notebook"
+                        name: 'Notebook'
                 ],
-                description : "A Gamer Notebook"
+                description: 'A Gamer Notebook'
         ])
     }
 }
