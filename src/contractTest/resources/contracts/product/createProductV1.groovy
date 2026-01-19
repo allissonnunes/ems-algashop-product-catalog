@@ -17,7 +17,7 @@ Contract.make {
                     salePrice   : value(test(1000.00), stub(anyNumber())),
                     enabled     : value(test(true), stub(anyBoolean())),
                     categoryId  : value(test('019bb3eb-db94-763b-a698-7cad3005d259'), stub(anyUuid())),
-                    description : value(test('A Gamer Notebook!'), stub(optional(anyNonBlankString())))
+                    description: value(test('A Gamer Notebook'), stub(optional(anyNonBlankString())))
             ])
         }
     }
@@ -33,10 +33,10 @@ Contract.make {
                 brand       : fromRequest().body('$.brand'),
                 regularPrice: fromRequest().body('$.regularPrice'),
                 salePrice   : fromRequest().body('$.salePrice'),
-                inStock     : false,
+                inStock     : anyBoolean(),
                 enabled     : fromRequest().body('$.enabled'),
                 category    : [
-                        id  : fromRequest().body('$.categoryId'),
+                        id: anyUuid(),
                         name: 'Notebook'
                 ],
                 description : fromRequest().body('$.description')
