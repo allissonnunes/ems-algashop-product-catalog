@@ -13,10 +13,10 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 
 @RestController
 @RequestMapping("/api/v1/products")
-public class ProductController {
+class ProductController {
 
     @PostMapping
-    public ResponseEntity<ProductDetailOutput> createProduct(@RequestBody final @Valid ProductInput input) {
+    ResponseEntity<ProductDetailOutput> createProduct(@RequestBody final @Valid ProductInput input) {
         ProductDetailOutput productDetailOutput = ProductDetailOutput.builder()
                 .id(UUID.randomUUID())
                 .addedAt(Instant.now())
@@ -41,7 +41,7 @@ public class ProductController {
     }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<ProductDetailOutput> findProductById(@PathVariable final UUID productId) {
+    ResponseEntity<ProductDetailOutput> findProductById(@PathVariable final UUID productId) {
         ProductDetailOutput productDetailOutput = ProductDetailOutput.builder()
                 .id(productId)
                 .addedAt(Instant.now())
@@ -61,7 +61,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<PageModel<ProductDetailOutput>> findProducts(final Integer page, final Integer size) {
+    ResponseEntity<PageModel<ProductDetailOutput>> findProducts(final Integer page, final Integer size) {
         return ResponseEntity.ok(PageModel.<ProductDetailOutput>builder()
                 .content(List.of(
                         ProductDetailOutput.builder()

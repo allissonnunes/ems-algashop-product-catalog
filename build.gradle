@@ -65,7 +65,7 @@ dependencyManagement {
 }
 
 contracts {
-    packageWithBaseClasses = "br.dev.allissonnunes.algashop.product.catalog.contract.base"
+    packageWithBaseClasses = "br.dev.allissonnunes.algashop.product.catalog.presentation"
 }
 
 tasks.named('contractTest') {
