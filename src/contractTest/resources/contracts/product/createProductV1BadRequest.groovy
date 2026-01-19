@@ -10,9 +10,17 @@ Contract.make {
             contentType(applicationJson())
         }
         urlPath('/api/v1/products') {
-            body([
-                    name: ''
-            ])
+            body('''\
+                {
+                    "name": "",
+                    "brand": "",
+                    "regularPrice": "",
+                    "salePrice": "",
+                    "enabled": "",
+                    "categoryId": "",
+                    "description": ""
+                }
+                ''')
         }
     }
     response {
@@ -25,7 +33,15 @@ Contract.make {
                 type    : '/errors/invalid-fields',
                 title   : 'Invalid fields',
                 detail  : 'One or more fields are invalid.',
-                instance: fromRequest().path()
+                instance: fromRequest().path(),
+                fields  : [
+                        name        : anyNonBlankString(),
+                        brand       : anyNonBlankString(),
+                        regularPrice: anyNonBlankString(),
+                        salePrice   : anyNonBlankString(),
+                        enabled     : anyNonBlankString(),
+                        categoryId  : anyNonBlankString()
+                ]
         ])
     }
 }
