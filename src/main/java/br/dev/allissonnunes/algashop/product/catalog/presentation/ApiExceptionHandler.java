@@ -1,5 +1,6 @@
 package br.dev.allissonnunes.algashop.product.catalog.presentation;
 
+import br.dev.allissonnunes.algashop.product.catalog.application.DomainEntityNotFoundException;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.springframework.context.MessageSource;
@@ -22,6 +23,18 @@ class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     public ApiExceptionHandler(final MessageSource messageSource) {
         super.setMessageSource(messageSource);
+    }
+
+    @ExceptionHandler(DomainEntityNotFoundException.class)
+    public ResponseEntity<Object> handleDomainEntityNotFoundException(final DomainEntityNotFoundException ex, final @NonNull WebRequest request) {
+        final HttpStatus notFound = HttpStatus.NOT_FOUND;
+
+        final ProblemDetail problemDetail = ProblemDetail.forStatus(notFound);
+        problemDetail.setTitle(notFound.getReasonPhrase());
+        problemDetail.setDetail(ex.getMessage());
+        problemDetail.setType(URI.create("/errors/not-found"));
+
+        return super.handleExceptionInternal(ex, problemDetail, new HttpHeaders(), notFound, request);
     }
 
     @ExceptionHandler(Exception.class)

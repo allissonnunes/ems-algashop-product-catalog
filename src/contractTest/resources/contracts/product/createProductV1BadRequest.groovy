@@ -21,10 +21,11 @@ Contract.make {
             contentType('application/problem+json')
         }
         body([
-                instance: fromRequest().path(),
+                status  : BAD_REQUEST(),
                 type    : '/errors/invalid-fields',
                 title   : 'Invalid fields',
-                detail  : 'One or more fields are invalid.'
+                detail  : 'One or more fields are invalid.',
+                instance: fromRequest().path()
         ])
     }
 }

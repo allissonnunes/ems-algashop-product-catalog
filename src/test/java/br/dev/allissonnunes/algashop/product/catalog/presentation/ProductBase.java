@@ -1,6 +1,7 @@
 package br.dev.allissonnunes.algashop.product.catalog.presentation;
 
 import br.dev.allissonnunes.algashop.product.catalog.ContractBaseExtension;
+import br.dev.allissonnunes.algashop.product.catalog.application.DomainEntityNotFoundException;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.management.ProductInput;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.management.ProductManagementApplicationService;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.query.PageModel;
@@ -22,7 +23,7 @@ import static org.mockito.Mockito.when;
 
 @WebMvcTest(ProductController.class)
 @ExtendWith(ContractBaseExtension.class)
-class ProductBase {
+abstract class ProductBase {
 
     @MockitoBean
     private ProductQueryService productQueryService;
@@ -41,6 +42,10 @@ class ProductBase {
 
         when(productManagementApplicationService.create(any(ProductInput.class)))
                 .thenReturn(validProductId);
+
+        final UUID invalidProductId = UUID.fromString("019bd762-8fed-7119-89b3-ae8c733727e8");
+        when(productQueryService.findById(invalidProductId))
+                .thenThrow(new DomainEntityNotFoundException("Product %s not found".formatted(invalidProductId)));
     }
 
     private @NonNull Answer<Object> filterProductsAnswer() {
