@@ -7,23 +7,16 @@ import java.util.UUID;
 @Service
 public class ProductManagementApplicationService {
 
-    public UUID create(final ProductInput input) {
-        return UUID.randomUUID();
+    public UUID create(ProductInput input) {
+        return null;
     }
 
-    public void update(final UUID productId, final ProductInput input) {
-        if (productId == null) {
-            throw new IllegalArgumentException("Product ID cannot be null");
-        }
-        if (input == null) {
-            throw new IllegalArgumentException("Product input cannot be null");
-        }
+    public void update(UUID productId, ProductInput input) {
+
     }
 
-    public void disable(final UUID productId) {
-        if (productId == null) {
-            throw new IllegalArgumentException("Product ID cannot be null");
-        }
+    public void disable(UUID productId) {
+
     }
 
 }

@@ -42,8 +42,23 @@ class ProductController {
     }
 
     @GetMapping
-    ResponseEntity<PageModel<ProductDetailOutput>> findProducts(final Integer page, final Integer size) {
+    ResponseEntity<PageModel<ProductDetailOutput>> findProducts(
+            @RequestParam(name = "number", required = false) final Integer page,
+            @RequestParam(name = "size", required = false) final Integer size) {
         return ResponseEntity.ok(productQueryService.filter(page, size));
+    }
+
+    @PutMapping("/{productId}")
+    ResponseEntity<ProductDetailOutput> updateProductById(@PathVariable final UUID productId, @RequestBody final @Valid ProductInput input) {
+        productManagementApplicationService.update(productId, input);
+        final ProductDetailOutput updatedProductDetail = productQueryService.findById(productId);
+        return ResponseEntity.ok(updatedProductDetail);
+    }
+
+    @DeleteMapping("/{productId}")
+    ResponseEntity<?> deleteProductById(@PathVariable UUID productId) {
+        productManagementApplicationService.disable(productId);
+        return ResponseEntity.noContent().build();
     }
 
 }
