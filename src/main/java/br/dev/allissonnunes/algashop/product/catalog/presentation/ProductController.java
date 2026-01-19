@@ -26,7 +26,10 @@ public class ProductController {
                 .salePrice(input.salePrice())
                 .inStock(false)
                 .enabled(input.enabled())
-                .category(CategoryOutput.builder().id(input.categoryId()).name("Notebook").build())
+                .category(CategoryMinimalOutput.builder()
+                        .id(input.categoryId())
+                        .name("Notebook")
+                        .build())
                 .description(input.description())
                 .build();
 
@@ -48,7 +51,10 @@ public class ProductController {
                 .salePrice(new BigDecimal("1000.00"))
                 .inStock(true)
                 .enabled(true)
-                .category(CategoryOutput.builder().id(UUID.randomUUID()).name("Notebook").build())
+                .category(CategoryMinimalOutput.builder()
+                        .id(UUID.randomUUID())
+                        .name("Notebook")
+                        .build())
                 .description("A Gamer Notebook")
                 .build();
         return ResponseEntity.ok(productDetailOutput);
@@ -67,7 +73,7 @@ public class ProductController {
                                 .salePrice(new BigDecimal("1000.00"))
                                 .inStock(true)
                                 .enabled(true)
-                                .category(CategoryOutput.builder().id(UUID.randomUUID()).name("Notebook").build())
+                                .category(CategoryMinimalOutput.builder().id(UUID.randomUUID()).name("Notebook").build())
                                 .description("A Gamer Notebook")
                                 .build(),
                         ProductDetailOutput.builder()
@@ -79,7 +85,7 @@ public class ProductController {
                                 .salePrice(new BigDecimal("3000.00"))
                                 .inStock(false)
                                 .enabled(true)
-                                .category(CategoryOutput.builder().id(UUID.randomUUID()).name("Desktop").build())
+                                .category(CategoryMinimalOutput.builder().id(UUID.randomUUID()).name("Desktop").build())
                                 .description("A Gamer Desktop")
                                 .build()
                 ))

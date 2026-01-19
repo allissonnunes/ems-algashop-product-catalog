@@ -16,7 +16,7 @@ public record ProductDetailOutput(
         BigDecimal salePrice,
         Boolean inStock,
         Boolean enabled,
-        CategoryOutput category,
+        CategoryMinimalOutput category,
         String description
 ) {
 

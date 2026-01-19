@@ -5,6 +5,6 @@ import lombok.Builder;
 import java.util.UUID;
 
 @Builder
-public record CategoryOutput(UUID id, String name) {
+public record CategoryMinimalOutput(UUID id, String name) {
 
 }
