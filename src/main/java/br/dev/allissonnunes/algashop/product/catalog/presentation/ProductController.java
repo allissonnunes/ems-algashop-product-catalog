@@ -1,8 +1,8 @@
 package br.dev.allissonnunes.algashop.product.catalog.presentation;
 
+import br.dev.allissonnunes.algashop.product.catalog.application.PageModel;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.management.ProductInput;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.management.ProductManagementApplicationService;
-import br.dev.allissonnunes.algashop.product.catalog.application.product.query.PageModel;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductDetailOutput;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductQueryService;
 import jakarta.validation.Valid;

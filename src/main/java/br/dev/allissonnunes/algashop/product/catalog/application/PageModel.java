@@ -1,4 +1,4 @@
-package br.dev.allissonnunes.algashop.product.catalog.application.product.query;
+package br.dev.allissonnunes.algashop.product.catalog.application;
 
 import lombok.Builder;
 
