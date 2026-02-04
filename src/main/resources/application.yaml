@@ -1,3 +1,6 @@
 spring:
   application:
     name: Product Catalog
+  web:
+    locale-resolver: fixed
+    locale: en_US
