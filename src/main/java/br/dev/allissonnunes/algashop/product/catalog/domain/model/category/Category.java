@@ -3,14 +3,13 @@ package br.dev.allissonnunes.algashop.product.catalog.domain.model.category;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.IdGenerator;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.OffsetDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 import static java.util.Objects.requireNonNull;
-
 
 @Document(collection = "categories")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -27,15 +26,25 @@ public class Category {
 
     private Boolean enabled;
 
-    private OffsetDateTime createdAt;
+    @Version
+    private Long version;
 
-    private OffsetDateTime updatedAt;
+    @CreatedBy
+    private UUID createdBy;
+
+    @CreatedDate
+    private Instant createdAt;
+
+    @LastModifiedBy
+    private UUID lastModifiedBy;
+
+    @LastModifiedDate
+    private Instant lastModifiedAt;
 
     public Category(final String name, final Boolean enabled) {
         this.setId(IdGenerator.generateTimeBasedUUID());
         this.setName(name);
         this.setEnabled(enabled);
-        this.setCreatedAt(OffsetDateTime.now());
     }
 
     public void setName(final String name) {
