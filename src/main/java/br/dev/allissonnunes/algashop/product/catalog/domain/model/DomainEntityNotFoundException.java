@@ -1,4 +1,4 @@
-package br.dev.allissonnunes.algashop.product.catalog.application;
+package br.dev.allissonnunes.algashop.product.catalog.domain.model;
 
 public class DomainEntityNotFoundException extends RuntimeException {
 

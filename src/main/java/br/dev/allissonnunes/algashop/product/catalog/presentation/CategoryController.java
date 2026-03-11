@@ -50,14 +50,14 @@ class CategoryController {
 
     @PutMapping("/{categoryId}")
     ResponseEntity<CategoryDetailOutput> updateCategory(@PathVariable final UUID categoryId, @RequestBody final @Valid CategoryInput input) {
-        final UUID updatedCategoryId = categoryManagementApplicationService.update(categoryId, input);
-        final CategoryDetailOutput categoryDetailOutput = categoryQueryService.findById(updatedCategoryId);
+        categoryManagementApplicationService.update(categoryId, input);
+        final CategoryDetailOutput categoryDetailOutput = categoryQueryService.findById(categoryId);
         return ResponseEntity.ok(categoryDetailOutput);
     }
 
     @DeleteMapping("/{categoryId}")
     ResponseEntity<Void> deleteCategory(@PathVariable final UUID categoryId) {
-        categoryManagementApplicationService.delete(categoryId);
+        categoryManagementApplicationService.disable(categoryId);
         return ResponseEntity.noContent().build();
     }
 

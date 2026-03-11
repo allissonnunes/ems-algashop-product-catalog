@@ -53,15 +53,14 @@ abstract class CategoryBase {
                 .thenReturn(CategoryDetailOutputTestDataBuilder.aCategoryDetailOutput().id(existentCategoryId).build());
 
         final UUID updateCategoryId = UUID.fromString("019bebc3-a9c3-7fde-9e2c-c65015132616");
-        when(categoryManagementApplicationService.update(any(UUID.class), any(CategoryInput.class)))
-                .thenReturn(updateCategoryId);
+        doNothing().when(categoryManagementApplicationService).update(any(UUID.class), any(CategoryInput.class));
         when(categoryQueryService.findById(updateCategoryId))
                 .thenReturn(CategoryDetailOutputTestDataBuilder.aCategoryDetailOutput()
                         .id(updateCategoryId)
                         .name("GPUs")
                         .build());
 
-        doNothing().when(categoryManagementApplicationService).delete(any(UUID.class));
+        doNothing().when(categoryManagementApplicationService).disable(any(UUID.class));
     }
 
 }

@@ -1,6 +1,6 @@
 package br.dev.allissonnunes.algashop.product.catalog.presentation;
 
-import br.dev.allissonnunes.algashop.product.catalog.application.DomainEntityNotFoundException;
+import br.dev.allissonnunes.algashop.product.catalog.domain.model.DomainEntityNotFoundException;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.springframework.context.MessageSource;
