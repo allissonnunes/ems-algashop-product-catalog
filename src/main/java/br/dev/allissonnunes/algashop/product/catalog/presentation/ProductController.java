@@ -5,6 +5,7 @@ import br.dev.allissonnunes.algashop.product.catalog.application.product.managem
 import br.dev.allissonnunes.algashop.product.catalog.application.product.management.ProductManagementApplicationService;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductDetailOutput;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductQueryService;
+import br.dev.allissonnunes.algashop.product.catalog.domain.model.category.CategoryNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,12 @@ class ProductController {
 
     @PostMapping
     ResponseEntity<ProductDetailOutput> createProduct(@RequestBody final @Valid ProductInput input) {
-        final UUID productId = productManagementApplicationService.create(input);
+        final UUID productId;
+        try {
+            productId = productManagementApplicationService.create(input);
+        } catch (final CategoryNotFoundException e) {
+            throw new UnprocessableContentException(e.getMessage(), e);
+        }
         final ProductDetailOutput productDetailOutput = productQueryService.findById(productId);
 
         final var location = fromCurrentRequestUri().path("/{productId}")

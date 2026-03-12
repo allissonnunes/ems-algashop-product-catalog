@@ -1,6 +1,7 @@
 package br.dev.allissonnunes.algashop.product.catalog.presentation;
 
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.DomainEntityNotFoundException;
+import br.dev.allissonnunes.algashop.product.catalog.domain.model.DomainException;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.springframework.context.MessageSource;
@@ -35,6 +36,18 @@ class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         problemDetail.setType(URI.create("/errors/not-found"));
 
         return super.handleExceptionInternal(ex, problemDetail, new HttpHeaders(), notFound, request);
+    }
+
+    @ExceptionHandler({ DomainException.class, UnprocessableContentException.class })
+    public ResponseEntity<Object> handleDomainException(final Exception ex, final @NonNull WebRequest request) {
+        final HttpStatus unprocessableContent = HttpStatus.UNPROCESSABLE_CONTENT;
+
+        final ProblemDetail problemDetail = ProblemDetail.forStatus(unprocessableContent);
+        problemDetail.setTitle(unprocessableContent.getReasonPhrase());
+        problemDetail.setDetail(ex.getMessage());
+        problemDetail.setType(URI.create("/errors/unprocessable-content"));
+
+        return this.handleExceptionInternal(ex, problemDetail, new HttpHeaders(), unprocessableContent, request);
     }
 
     @ExceptionHandler(Exception.class)

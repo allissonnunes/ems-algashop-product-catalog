@@ -3,6 +3,7 @@ package br.dev.allissonnunes.algashop.product.catalog.application.category.manag
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.category.Category;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.category.CategoryNotFoundException;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.category.CategoryRepository;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +22,7 @@ public class CategoryManagementApplicationService {
     }
 
     public void update(final UUID categoryId, final CategoryInput input) {
-        final Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new CategoryNotFoundException(categoryId));
+        final Category category = findCategory(categoryId);
 
         category.setName(input.name());
         category.setEnabled(input.enabled());
@@ -31,12 +31,15 @@ public class CategoryManagementApplicationService {
     }
 
     public void disable(final UUID categoryId) {
-        final Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new CategoryNotFoundException(categoryId));
+        final Category category = findCategory(categoryId);
 
         category.setEnabled(false);
 
         categoryRepository.save(category);
+    }
+
+    private Category findCategory(final @NotNull UUID categoryId) {
+        return categoryRepository.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException(categoryId));
     }
 
 }
