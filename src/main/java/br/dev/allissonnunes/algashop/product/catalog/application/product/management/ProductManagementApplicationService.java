@@ -54,6 +54,7 @@ public class ProductManagementApplicationService {
                 .regularPrice(input.regularPrice())
                 .salePrice(input.salePrice())
                 .enabled(input.enabled())
+                .category(category)
                 .build();
     }
 
@@ -65,6 +66,7 @@ public class ProductManagementApplicationService {
         product.setDescription(input.description());
         product.setRegularPrice(input.regularPrice());
         product.setSalePrice(input.salePrice());
+        product.setCategory(category);
     }
 
     private Category findCategory(final @NotNull UUID categoryId) {

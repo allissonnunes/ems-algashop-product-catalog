@@ -2,10 +2,13 @@ package br.dev.allissonnunes.algashop.product.catalog.domain.model.product;
 
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.DomainException;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.IdGenerator;
+import br.dev.allissonnunes.algashop.product.catalog.domain.model.category.Category;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.annotation.*;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -38,6 +41,10 @@ public class Product {
 
     private Boolean enabled;
 
+    @DocumentReference
+    @Field("categoryId")
+    private Category category;
+
     @Version
     private Long version;
 
@@ -59,7 +66,8 @@ public class Product {
                    final String description,
                    final BigDecimal regularPrice,
                    final BigDecimal salePrice,
-                   final Boolean enabled) {
+                   final Boolean enabled,
+                   final Category category) {
         this.setId(IdGenerator.generateTimeBasedUUID());
         this.setName(name);
         this.setBrand(brand);
@@ -68,6 +76,7 @@ public class Product {
         this.setRegularPrice(regularPrice);
         this.setSalePrice(salePrice);
         this.setEnabled(enabled);
+        this.setCategory(category);
     }
 
     public void setName(final String name) {
@@ -93,7 +102,6 @@ public class Product {
         if (this.salePrice == null) {
             this.salePrice = regularPrice;
         } else if (regularPrice.compareTo(this.salePrice) < 0) {
-//            throw new DomainException("Product regular price cannot be lower than sale price");
             throw new DomainException("Sale price cannot be greater than regular price");
         }
         this.regularPrice = regularPrice;
@@ -111,6 +119,10 @@ public class Product {
             throw new DomainException("Sale price cannot be greater than regular price");
         }
         this.salePrice = salePrice;
+    }
+
+    public void setCategory(final Category category) {
+        this.category = requireNonNull(category, "Product category cannot be null");
     }
 
     public void disable() {
