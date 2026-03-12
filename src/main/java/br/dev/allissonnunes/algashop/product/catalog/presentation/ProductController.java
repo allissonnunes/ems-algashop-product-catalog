@@ -61,9 +61,15 @@ class ProductController {
         return ResponseEntity.ok(updatedProductDetail);
     }
 
-    @DeleteMapping("/{productId}")
-    ResponseEntity<?> deleteProductById(@PathVariable UUID productId) {
+    @DeleteMapping("/{productId}/enable")
+    ResponseEntity<?> disable(@PathVariable UUID productId) {
         productManagementApplicationService.disable(productId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{productId}/enable")
+    ResponseEntity<?> enable(@PathVariable UUID productId) {
+        productManagementApplicationService.enable(productId);
         return ResponseEntity.noContent().build();
     }
 
