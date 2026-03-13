@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -34,6 +35,8 @@ public class Product {
     private String description;
 
     private Integer quantityInStock;
+
+    private Integer discountPercentageRounded;
 
     private BigDecimal regularPrice;
 
@@ -73,6 +76,7 @@ public class Product {
         this.setBrand(brand);
         this.setDescription(description);
         this.setQuantityInStock(0);
+        this.setDiscountPercentageRounded(0);
         this.setRegularPrice(regularPrice);
         this.setSalePrice(salePrice);
         this.setEnabled(enabled);
@@ -105,6 +109,7 @@ public class Product {
             throw new DomainException("Sale price cannot be greater than regular price");
         }
         this.regularPrice = regularPrice;
+        this.calculateDiscountPercentage();
     }
 
     public void setSalePrice(final BigDecimal salePrice) {
@@ -119,6 +124,7 @@ public class Product {
             throw new DomainException("Sale price cannot be greater than regular price");
         }
         this.salePrice = salePrice;
+        this.calculateDiscountPercentage();
     }
 
     public void setCategory(final Category category) {
@@ -137,6 +143,10 @@ public class Product {
         return this.getQuantityInStock() != null && this.getQuantityInStock() > 0;
     }
 
+    public boolean hasDiscount() {
+        return this.getDiscountPercentageRounded() != null && this.getDiscountPercentageRounded() > 0;
+    }
+
     private void setId(final UUID id) {
         this.id = requireNonNull(id, "Product id cannot be null");
     }
@@ -151,6 +161,19 @@ public class Product {
 
     private void setEnabled(final Boolean enabled) {
         this.enabled = requireNonNull(enabled, "Product enabled cannot be null");
+    }
+
+    private void calculateDiscountPercentage() {
+        if (this.salePrice == null || this.regularPrice == null || this.regularPrice.signum() == 0) {
+            this.discountPercentageRounded = 0;
+            return;
+        }
+
+        this.discountPercentageRounded = BigDecimal.ONE
+                .subtract(this.salePrice.divide(this.regularPrice, 4, RoundingMode.HALF_UP))
+                .multiply(new BigDecimal(100))
+                .setScale(0, RoundingMode.HALF_UP)
+                .intValue();
     }
 
 }

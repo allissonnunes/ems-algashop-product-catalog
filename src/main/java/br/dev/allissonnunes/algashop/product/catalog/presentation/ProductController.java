@@ -5,6 +5,7 @@ import br.dev.allissonnunes.algashop.product.catalog.application.product.managem
 import br.dev.allissonnunes.algashop.product.catalog.application.product.management.ProductManagementApplicationService;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductDetailOutput;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductQueryService;
+import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductSummaryOutput;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.category.CategoryNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +49,7 @@ class ProductController {
     }
 
     @GetMapping
-    ResponseEntity<PageModel<ProductDetailOutput>> findProducts(
+    ResponseEntity<PageModel<ProductSummaryOutput>> findProducts(
             @RequestParam(name = "number", required = false) final Integer page,
             @RequestParam(name = "size", required = false) final Integer size) {
         return ResponseEntity.ok(productQueryService.filter(page, size));

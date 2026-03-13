@@ -3,6 +3,7 @@ package br.dev.allissonnunes.algashop.product.catalog.infrastructure.persistence
 import br.dev.allissonnunes.algashop.product.catalog.application.PageModel;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductDetailOutput;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductQueryService;
+import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductSummaryOutput;
 import br.dev.allissonnunes.algashop.product.catalog.application.utility.Mapper;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.product.ProductNotFoundException;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.product.ProductRepository;
@@ -27,7 +28,7 @@ class ProductQueryServiceImpl implements ProductQueryService {
     }
 
     @Override
-    public PageModel<ProductDetailOutput> filter(final Integer page, final Integer size) {
+    public PageModel<ProductSummaryOutput> filter(final Integer page, final Integer size) {
         throw new UnsupportedOperationException("Method not implemented yet");
     }
 

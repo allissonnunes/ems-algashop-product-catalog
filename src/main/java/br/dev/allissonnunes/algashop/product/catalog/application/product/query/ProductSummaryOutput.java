@@ -7,7 +7,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Builder
-public record ProductDetailOutput(
+public record ProductSummaryOutput(
         UUID id,
         Instant addedAt,
         String name,
@@ -21,7 +21,7 @@ public record ProductDetailOutput(
         Integer quantityInStock,
         Integer discountPercentageRounded,
         CategoryMinimalOutput category,
-        String description
+        String shortDescription
 ) {
 
 }

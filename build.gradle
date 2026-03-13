@@ -112,7 +112,8 @@ contractTest {
 compileJava {
     options.compilerArgs += [
             '-Amapstruct.defaultComponentModel=spring',
-            '-Amapstruct.suppressGeneratorTimestamp=true',
+            '-Amapstruct.defaultInjectionStrategy=constructor',
+            '-Amapstruct.suppressGeneratorTimestamp=false',
             '-Amapstruct.suppressGeneratorVersionInfoComment=true',
             '-Amapstruct.verbose=true'
     ]
