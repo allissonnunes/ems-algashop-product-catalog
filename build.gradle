@@ -43,6 +43,7 @@ ext {
     set('snippetsDir', file("build/generated-snippets"))
     set('springCloudVersion', "2025.1.0")
     set('mapstructVersion', "1.6.3")
+    set('lombokMapstructBindingVersion', "0.2.0")
 }
 
 dependencies {
@@ -57,7 +58,7 @@ dependencies {
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
     annotationProcessor 'org.projectlombok:lombok'
-    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
+    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}"
     testImplementation 'org.springframework.boot:spring-boot-restdocs'
     testImplementation 'org.springframework.boot:spring-boot-starter-data-mongodb-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
@@ -65,6 +66,8 @@ dependencies {
     testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-verifier'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     testImplementation 'io.rest-assured:spring-mock-mvc:6.0.0'
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     mockitoAgent("org.mockito:mockito-core") {
         transitive = false
@@ -75,6 +78,18 @@ dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
     }
+}
+
+compileJava {
+    options.compilerArgs += [
+            '-Amapstruct.defaultComponentModel=spring',
+            '-Amapstruct.defaultInjectionStrategy=constructor',
+            '-Amapstruct.nullValueIterableMappingStrategy=RETURN_DEFAULT',
+            '-Amapstruct.nullValueMapMappingStrategy=RETURN_DEFAULT',
+            '-Amapstruct.suppressGeneratorTimestamp=false',
+            '-Amapstruct.suppressGeneratorVersionInfoComment=true',
+            '-Amapstruct.verbose=true'
+    ]
 }
 
 contracts {
@@ -95,8 +110,34 @@ tasks.named('asciidoctor') {
 //    outputDir = file("build/docs/asciidoc")
 }
 
+tasks.named('check') {
+    dependsOn(test, contractTest, integrationTest)
+}
+
 tasks.named('contractTest') {
     useJUnitPlatform()
+}
+
+tasks.register('integrationTest', Test) {
+    description = 'Run integration tests.'
+    group = 'verification'
+
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    jvmArgs += "-javaagent:${configurations.mockitoAgent.asPath}"
+
+    shouldRunAfter(test)
+
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed'
+    }
+
+    filter {
+        includeTestsMatching('*IT')
+        excludeTestsMatching('*Test')
+    }
 }
 
 tasks.named('test') {
@@ -104,17 +145,13 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-test
-contractTest {
-    jvmArgs += "-javaagent:${configurations.mockitoAgent.asPath}"
+test {
+    filter {
+        excludeTestsMatching('*IT')
+    }
 }
 
-compileJava {
-    options.compilerArgs += [
-            '-Amapstruct.defaultComponentModel=spring',
-            '-Amapstruct.defaultInjectionStrategy=constructor',
-            '-Amapstruct.suppressGeneratorTimestamp=false',
-            '-Amapstruct.suppressGeneratorVersionInfoComment=true',
-            '-Amapstruct.verbose=true'
-    ]
+contractTest
+test {
+    jvmArgs += "-javaagent:${configurations.mockitoAgent.asPath}"
 }

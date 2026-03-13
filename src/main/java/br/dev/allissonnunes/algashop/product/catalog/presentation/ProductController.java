@@ -50,7 +50,7 @@ class ProductController {
 
     @GetMapping
     ResponseEntity<PageModel<ProductSummaryOutput>> findProducts(
-            @RequestParam(name = "number", required = false) final Integer page,
+            @RequestParam(name = "page", required = false) final Integer page,
             @RequestParam(name = "size", required = false) final Integer size) {
         return ResponseEntity.ok(productQueryService.filter(page, size));
     }

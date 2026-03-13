@@ -1,6 +1,7 @@
 package br.dev.allissonnunes.algashop.product.catalog.application;
 
 import lombok.Builder;
+import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,14 +33,14 @@ public record PageModel<T>(
         }
     }
 
-//    public static <T> PageModel<T> of(final Page<T> page) {
-//        return PageModel.<T>builder()
-//                .content(page.getContent())
-//                .number(page.getNumber())
-//                .size(page.getSize())
-//                .totalPages(page.getTotalPages())
-//                .totalElements(page.getTotalElements())
-//                .build();
-//    }
+    public static <T> PageModel<T> of(final Page<T> page) {
+        return PageModel.<T>builder()
+                .content(page.getContent())
+                .number(page.getNumber())
+                .size(page.getSize())
+                .totalPages(page.getTotalPages())
+                .totalElements(page.getTotalElements())
+                .build();
+    }
 
 }

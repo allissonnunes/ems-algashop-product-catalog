@@ -8,6 +8,8 @@ import br.dev.allissonnunes.algashop.product.catalog.application.utility.Mapper;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.product.ProductNotFoundException;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -29,7 +31,9 @@ class ProductQueryServiceImpl implements ProductQueryService {
 
     @Override
     public PageModel<ProductSummaryOutput> filter(final Integer page, final Integer size) {
-        throw new UnsupportedOperationException("Method not implemented yet");
+        final Page<ProductSummaryOutput> productSummaryPage = productRepository.findAll(PageRequest.of(page, size))
+                .map(p -> mapper.map(p, ProductSummaryOutput.class));
+        return PageModel.of(productSummaryPage);
     }
 
 }
