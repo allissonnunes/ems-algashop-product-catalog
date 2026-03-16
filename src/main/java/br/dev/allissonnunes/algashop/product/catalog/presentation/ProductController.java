@@ -4,6 +4,7 @@ import br.dev.allissonnunes.algashop.product.catalog.application.PageModel;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.management.ProductInput;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.management.ProductManagementApplicationService;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductDetailOutput;
+import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductFilter;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductQueryService;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductSummaryOutput;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.category.CategoryNotFoundException;
@@ -49,10 +50,8 @@ class ProductController {
     }
 
     @GetMapping
-    ResponseEntity<PageModel<ProductSummaryOutput>> findProducts(
-            @RequestParam(name = "page", required = false) final Integer page,
-            @RequestParam(name = "size", required = false) final Integer size) {
-        return ResponseEntity.ok(productQueryService.filter(page, size));
+    ResponseEntity<PageModel<ProductSummaryOutput>> findProducts(final ProductFilter filter) {
+        return ResponseEntity.ok(productQueryService.filter(filter));
     }
 
     @PutMapping("/{productId}")

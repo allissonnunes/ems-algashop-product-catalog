@@ -4,6 +4,7 @@ import lombok.Builder;
 import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static java.util.Objects.requireNonNullElseGet;
@@ -31,6 +32,16 @@ public record PageModel<T>(
         if (totalElements < 0) {
             throw new IllegalArgumentException("Total elements must be greater than or equal to zero");
         }
+    }
+
+    public static <T> PageModel<T> empty(final Integer pageSize) {
+        return PageModel.<T>builder()
+                .content(Collections.emptyList())
+                .number(0)
+                .size(pageSize)
+                .totalPages(0)
+                .totalElements(0)
+                .build();
     }
 
     public static <T> PageModel<T> of(final Page<T> page) {
