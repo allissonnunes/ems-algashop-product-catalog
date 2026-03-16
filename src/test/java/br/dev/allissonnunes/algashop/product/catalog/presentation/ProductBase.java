@@ -6,6 +6,7 @@ import br.dev.allissonnunes.algashop.product.catalog.application.product.managem
 import br.dev.allissonnunes.algashop.product.catalog.application.product.management.ProductManagementApplicationService;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductDetailOutput;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductDetailOutputTestDataBuilder;
+import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductFilter;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductQueryService;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.DomainEntityNotFoundException;
 import org.jspecify.annotations.NonNull;
@@ -18,7 +19,8 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import java.util.List;
 import java.util.UUID;
 
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @WebMvcTest(ProductController.class)
@@ -37,7 +39,7 @@ abstract class ProductBase {
         when(productQueryService.findById(eq(validProductId)))
                 .thenReturn(ProductDetailOutputTestDataBuilder.aProduct().id(validProductId).build());
 
-        when(productQueryService.filter(anyInt(), anyInt()))
+        when(productQueryService.filter(any(ProductFilter.class)))
                 .thenAnswer(filterProductsAnswer());
 
         when(productManagementApplicationService.create(any(ProductInput.class)))

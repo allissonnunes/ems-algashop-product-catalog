@@ -6,7 +6,7 @@ import org.springframework.data.auditing.DateTimeProvider;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 
-import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.UUID;
@@ -20,7 +20,7 @@ class SpringDataConfiguration {
 
     @Bean
     DateTimeProvider dateTimeProvider() {
-        return () -> Optional.of(Instant.now().truncatedTo(ChronoUnit.MILLIS));
+        return () -> Optional.of(OffsetDateTime.now().truncatedTo(ChronoUnit.MILLIS));
     }
 
     @Bean

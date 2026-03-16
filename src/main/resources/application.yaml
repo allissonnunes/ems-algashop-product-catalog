@@ -10,3 +10,13 @@ spring:
   web:
     locale-resolver: fixed
     locale: en_US
+
+algashop:
+  dataloader:
+    enabled: true
+    autoDrop: true
+    document-locations:
+      - location: classpath:data/product_catalog.product-nic-import.json
+        collection-name: products
+      - location: classpath:data/product_catalog.category-import.json
+        collection-name: categories

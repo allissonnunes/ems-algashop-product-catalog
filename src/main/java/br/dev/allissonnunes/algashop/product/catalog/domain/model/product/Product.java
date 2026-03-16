@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import static java.util.Objects.requireNonNull;
@@ -55,13 +55,13 @@ public class Product {
     private UUID createdBy;
 
     @CreatedDate
-    private Instant createdAt;
+    private OffsetDateTime createdAt;
 
     @LastModifiedBy
     private UUID lastModifiedBy;
 
     @LastModifiedDate
-    private Instant lastModifiedAt;
+    private OffsetDateTime lastModifiedAt;
 
     @Builder
     public Product(final String name,
