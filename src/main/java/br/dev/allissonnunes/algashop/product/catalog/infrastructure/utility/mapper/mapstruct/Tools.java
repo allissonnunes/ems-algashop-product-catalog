@@ -13,7 +13,7 @@ public final class Tools {
         if (StringUtils.isBlank(description)) {
             return null;
         }
-        return StringUtils.abbreviate(description, 15);
+        return StringUtils.abbreviate(description, 50);
     }
 
     @Named("slugify")
