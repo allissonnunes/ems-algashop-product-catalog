@@ -5,16 +5,16 @@
     },
     "name": "Laptops",
     "enabled": true,
-    "addedAt": {
+    "createdAt": {
       "$date": "2024-04-26T12:53:43.291Z"
     },
     "updatedAt": {
       "$date": "2024-04-26T12:53:43.291Z"
     },
-    "createdByUserId": {
+    "createdBy": {
       "$uuid": "019ac149-6c80-7842-aa23-781d8d390f87"
     },
-    "lastModifiedByUserId": {
+    "lastModifiedBy": {
       "$uuid": "019ac149-6c80-7842-aa23-781d8d390f87"
     },
     "version": 0,
@@ -26,16 +26,16 @@
     },
     "name": "Desktops",
     "enabled": true,
-    "addedAt": {
+    "createdAt": {
       "$date": "2024-04-26T12:53:51.612Z"
     },
     "updatedAt": {
       "$date": "2024-04-26T12:53:51.612Z"
     },
-    "createdByUserId": {
+    "createdBy": {
       "$uuid": "019ac149-6c80-7842-aa23-781d8d390f87"
     },
-    "lastModifiedByUserId": {
+    "lastModifiedBy": {
       "$uuid": "019ac149-6c80-7842-aa23-781d8d390f87"
     },
     "version": 0,
@@ -47,16 +47,16 @@
     },
     "name": "Hardware",
     "enabled": true,
-    "addedAt": {
+    "createdAt": {
       "$date": "2024-04-26T12:55:03.637Z"
     },
     "updatedAt": {
       "$date": "2024-04-26T12:55:03.637Z"
     },
-    "createdByUserId": {
+    "createdBy": {
       "$uuid": "019ac149-6c80-7842-aa23-781d8d390f87"
     },
-    "lastModifiedByUserId": {
+    "lastModifiedBy": {
       "$uuid": "019ac149-6c80-7842-aa23-781d8d390f87"
     },
     "version": 0,
@@ -68,16 +68,16 @@
     },
     "name": "Cell Phones",
     "enabled": true,
-    "addedAt": {
+    "createdAt": {
       "$date": "2024-04-26T12:57:02.306Z"
     },
     "updatedAt": {
       "$date": "2024-04-26T12:57:02.306Z"
     },
-    "createdByUserId": {
+    "createdBy": {
       "$uuid": "019ac149-6c80-7842-aa23-781d8d390f87"
     },
-    "lastModifiedByUserId": {
+    "lastModifiedBy": {
       "$uuid": "019ac149-6c80-7842-aa23-781d8d390f87"
     },
     "version": 0,
