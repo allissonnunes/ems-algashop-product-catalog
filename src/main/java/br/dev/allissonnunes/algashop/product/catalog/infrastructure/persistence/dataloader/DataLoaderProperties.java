@@ -14,7 +14,7 @@ class DataLoaderProperties {
 
     private boolean enabled;
 
-    private boolean autoDrop;
+    private boolean autoDelete;
 
     private List<DocumentLocation> documentLocations;
 

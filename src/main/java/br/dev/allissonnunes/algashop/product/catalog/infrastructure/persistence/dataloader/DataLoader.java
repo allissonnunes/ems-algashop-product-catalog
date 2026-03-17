@@ -60,9 +60,9 @@ class DataLoader implements ApplicationRunner {
 
         try {
             final MongoCollection<Document> targetCollection = mongoOperations.getCollection(documentLocation.getCollectionName());
-            if (properties.isAutoDrop()) {
-                log.info("Dropping collection {}", documentLocation.getCollectionName());
-                targetCollection.drop();
+            if (properties.isAutoDelete()) {
+                log.info("Deleting all documents from collection {}", documentLocation.getCollectionName());
+                targetCollection.deleteMany(new Document());
             }
 
             log.info("Inserting {} documents into collection {}", documents.size(), documentLocation.getCollectionName());
