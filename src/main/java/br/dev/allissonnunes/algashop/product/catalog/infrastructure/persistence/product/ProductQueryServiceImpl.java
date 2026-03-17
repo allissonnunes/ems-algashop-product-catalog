@@ -18,6 +18,7 @@ import org.springframework.data.mongodb.core.aggregation.AggregationExpressionCr
 import org.springframework.data.mongodb.core.aggregation.ComparisonOperators;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -78,11 +79,7 @@ class ProductQueryServiceImpl implements ProductQueryService {
         if (StringUtils.isNotBlank(filter.getTerm())) {
             final Pattern searchTermRegex = Pattern.compile(findWordRegex.formatted(filter.getTerm()));
             query.addCriteria(
-                    new Criteria().orOperator(
-                            Criteria.where("name").regex(searchTermRegex),
-                            Criteria.where("brand").regex(searchTermRegex),
-                            Criteria.where("description").regex(searchTermRegex)
-                    )
+                    TextCriteria.forDefaultLanguage().matching(filter.getTerm())
             );
         }
 
@@ -156,6 +153,9 @@ class ProductQueryServiceImpl implements ProductQueryService {
     }
 
     private Sort sortWith(final ProductFilter filter) {
+        if (StringUtils.isNotBlank(filter.getTerm())) {
+            return Sort.by("score");
+        }
         return Sort.by(filter.getSortDirectionOrDefault(), filter.getSortByPropertyOrDefault().getProperty());
     }
 

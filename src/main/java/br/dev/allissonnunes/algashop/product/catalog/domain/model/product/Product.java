@@ -6,6 +6,9 @@ import br.dev.allissonnunes.algashop.product.catalog.domain.model.category.Categ
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.annotation.*;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -17,6 +20,16 @@ import java.util.UUID;
 
 import static java.util.Objects.requireNonNull;
 
+@CompoundIndex(
+        name = "pidx_product_by_category_enabledTrue_salePrice",
+        def = "{'categoryId': 1, 'salePrice': 1}",
+        partialFilter = "{'enabled': true}"
+)
+@CompoundIndex(
+        name = "pidx_product_by_category_enabledTrue_addedAt",
+        def = "{'categoryId': 1, 'addedAt': -1}",
+        partialFilter = "{'enabled': true}"
+)
 @Document(collection = "products")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
@@ -28,10 +41,13 @@ public class Product {
     @EqualsAndHashCode.Include
     private UUID id;
 
+    @TextIndexed(weight = 1.0F)
     private String name;
 
+    @Indexed(name = "idx_product_by_brand")
     private String brand;
 
+    @TextIndexed(weight = 5.0F)
     private String description;
 
     private Integer quantityInStock;

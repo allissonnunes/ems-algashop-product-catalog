@@ -3,13 +3,13 @@ package br.dev.allissonnunes.algashop.product.catalog.application.product.query;
 import lombok.Builder;
 
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Builder
 public record ProductDetailOutput(
         UUID id,
-        Instant addedAt,
+        OffsetDateTime addedAt,
         String name,
         String brand,
         String slug,
