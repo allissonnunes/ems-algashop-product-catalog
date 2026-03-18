@@ -8,6 +8,6 @@ public interface CategoryQueryService {
 
     CategoryDetailOutput findById(UUID categoryId);
 
-    PageModel<CategoryDetailOutput> filter(Integer page, Integer size);
+    PageModel<CategoryDetailOutput> filter(CategoryFilter filter);
 
 }

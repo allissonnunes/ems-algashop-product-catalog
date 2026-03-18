@@ -4,6 +4,7 @@ import br.dev.allissonnunes.algashop.product.catalog.application.PageModel;
 import br.dev.allissonnunes.algashop.product.catalog.application.category.management.CategoryInput;
 import br.dev.allissonnunes.algashop.product.catalog.application.category.management.CategoryManagementApplicationService;
 import br.dev.allissonnunes.algashop.product.catalog.application.category.query.CategoryDetailOutput;
+import br.dev.allissonnunes.algashop.product.catalog.application.category.query.CategoryFilter;
 import br.dev.allissonnunes.algashop.product.catalog.application.category.query.CategoryQueryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,11 +25,8 @@ class CategoryController {
     private final CategoryManagementApplicationService categoryManagementApplicationService;
 
     @GetMapping
-    ResponseEntity<PageModel<CategoryDetailOutput>> findCategories(
-            @RequestParam(name = "page", required = false) Integer page,
-            @RequestParam(name = "size", required = false) Integer size
-    ) {
-        return ResponseEntity.ok(categoryQueryService.filter(page, size));
+    ResponseEntity<PageModel<CategoryDetailOutput>> findCategories(final CategoryFilter filter) {
+        return ResponseEntity.ok(categoryQueryService.filter(filter));
     }
 
     @PostMapping

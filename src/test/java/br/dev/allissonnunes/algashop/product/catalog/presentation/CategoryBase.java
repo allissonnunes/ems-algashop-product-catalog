@@ -5,6 +5,7 @@ import br.dev.allissonnunes.algashop.product.catalog.application.PageModel;
 import br.dev.allissonnunes.algashop.product.catalog.application.category.management.CategoryInput;
 import br.dev.allissonnunes.algashop.product.catalog.application.category.management.CategoryManagementApplicationService;
 import br.dev.allissonnunes.algashop.product.catalog.application.category.query.CategoryDetailOutputTestDataBuilder;
+import br.dev.allissonnunes.algashop.product.catalog.application.category.query.CategoryFilter;
 import br.dev.allissonnunes.algashop.product.catalog.application.category.query.CategoryQueryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +16,6 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
@@ -31,14 +31,13 @@ abstract class CategoryBase {
 
     @BeforeEach
     void setUp() {
-        when(categoryQueryService.filter(anyInt(), anyInt()))
+        when(categoryQueryService.filter(any(CategoryFilter.class)))
                 .thenAnswer(invocation -> {
-                    int page = invocation.getArgument(0);
-                    int size = invocation.getArgument(1);
+                    CategoryFilter filter = invocation.getArgument(0);
                     return new PageModel<>(List.of(
                             CategoryDetailOutputTestDataBuilder.aCategoryDetailOutput().build(),
                             CategoryDetailOutputTestDataBuilder.aCategoryDetailOutputAlt1().build()
-                    ), page, size, 1, 2);
+                    ), filter.getPage(), filter.getSize(), 1, 2);
                 });
 
         final UUID newCategoryId = UUID.randomUUID();
