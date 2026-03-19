@@ -1,5 +1,6 @@
 package br.dev.allissonnunes.algashop.product.catalog.application.product.query;
 
+import br.dev.allissonnunes.algashop.product.catalog.infrastructure.utility.Slugfier;
 import lombok.Builder;
 
 import java.math.BigDecimal;
@@ -23,5 +24,9 @@ public record ProductSummaryOutput(
         CategoryMinimalOutput category,
         String shortDescription
 ) {
+
+    public ProductSummaryOutput {
+        slug = Slugfier.slugify(name);
+    }
 
 }
