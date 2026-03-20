@@ -15,7 +15,7 @@ class CategoryUpdateListener {
 
     @Async
     @EventListener
-    void handle(final CategoryUpdatedEvent event) {
+    void on(final CategoryUpdatedEvent event) {
         productCategoryUpdaterService.updateProductCategory(event);
     }
 
