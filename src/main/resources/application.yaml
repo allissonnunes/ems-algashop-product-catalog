@@ -16,7 +16,7 @@ spring:
 
 algashop:
   dataloader:
-    enabled: false
+    enabled: true
     auto-delete: true
     document-locations:
       - location: classpath:data/product_catalog.product-nic-import.json

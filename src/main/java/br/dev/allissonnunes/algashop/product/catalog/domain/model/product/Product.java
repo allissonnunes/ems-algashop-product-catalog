@@ -20,12 +20,12 @@ import static java.util.Objects.requireNonNull;
 
 @CompoundIndex(
         name = "pidx_product_by_category_enabledTrue_salePrice",
-        def = "{'categoryId': 1, 'salePrice': 1}",
+        def = "{'category._id': 1, 'salePrice': 1}",
         partialFilter = "{'enabled': true}"
 )
 @CompoundIndex(
         name = "pidx_product_by_category_enabledTrue_addedAt",
-        def = "{'categoryId': 1, 'addedAt': -1}",
+        def = "{'category._id': 1, 'addedAt': -1}",
         partialFilter = "{'enabled': true}"
 )
 @Document(collection = "products")
@@ -57,8 +57,6 @@ public class Product {
     private BigDecimal salePrice;
 
     private Boolean enabled;
-
-    private UUID categoryId;
 
     private ProductCategory category;
 
@@ -143,7 +141,6 @@ public class Product {
 
     public void setCategory(final Category category) {
         requireNonNull(category, "Product category cannot be null");
-        this.categoryId = category.getId();
         this.category = ProductCategory.of(category);
     }
 

@@ -10,7 +10,7 @@
       "$date": "2024-06-14T20:17:51.362Z"
     },
     "version": {
-      "$numberLong": "2"
+      "$numberLong": "3"
     },
     "name": "HyperNova Pro X11 Intel Core i9, 32GB RAM",
     "brand": "QuantumTech",
@@ -22,9 +22,6 @@
     },
     "enabled": true,
     "discountPercentageRounded": 7,
-    "categoryId": {
-      "$uuid": "e0c4271d-0016-4a42-82fe-bf695a9fb9b8"
-    },
     "quantityInStock": 50,
     "description": "15-inch laptop, Intel Core i9, 32GB RAM, 1TB SSD, NVIDIA GeForce RTX 3080",
     "_class": "br.dev.allissonnunes.algashop.product.catalog.domain.model.product.Product",
@@ -33,6 +30,13 @@
     },
     "lastModifiedBy": {
       "$uuid": "019ac149-6c80-7842-aa23-781d8d390f87"
+    },
+    "category": {
+      "_id": {
+        "$uuid": "e0c4271d-0016-4a42-82fe-bf695a9fb9b8"
+      },
+      "name": "Laptop Gamer",
+      "enabled": true
     }
   },
   {
@@ -46,7 +50,7 @@
       "$date": "2024-06-14T20:17:39.403Z"
     },
     "version": {
-      "$numberLong": "3"
+      "$numberLong": "4"
     },
     "name": "StellarForge D7 AMD Ryzen 9",
     "brand": "Nebula Systems",
@@ -58,9 +62,6 @@
     },
     "enabled": false,
     "discountPercentageRounded": 0,
-    "categoryId": {
-      "$uuid": "e0c4271d-0016-4a42-82fe-bf695a9fb9b8"
-    },
     "quantityInStock": 11,
     "description": "Gaming laptop, AMD Ryzen 9, 64GB RAM, 2TB NVMe SSD, NVIDIA GeForce RTX 3090",
     "_class": "br.dev.allissonnunes.algashop.product.catalog.domain.model.product.Product",
@@ -69,6 +70,13 @@
     },
     "lastModifiedBy": {
       "$uuid": "019ac149-6c80-7842-aa23-781d8d390f87"
+    },
+    "category": {
+      "_id": {
+        "$uuid": "e0c4271d-0016-4a42-82fe-bf695a9fb9b8"
+      },
+      "name": "Laptop Gamer",
+      "enabled": true
     }
   },
   {
@@ -81,9 +89,7 @@
     "updatedAt": {
       "$date": "2024-06-14T19:57:24.867Z"
     },
-    "version": {
-      "$numberLong": "3"
-    },
+    "version": 3,
     "name": "QuantumEdge Z Desktop and Screen 1080p",
     "brand": "QuantumTech",
     "regularPrice": {
@@ -94,9 +100,6 @@
     },
     "enabled": true,
     "discountPercentageRounded": 6,
-    "categoryId": {
-      "$uuid": "c4edfdd5-c71e-47aa-8f00-2925abbbb75f"
-    },
     "quantityInStock": 6,
     "description": "Liquid-cooled gaming PC, AMD Ryzen 7, 32GB RGB RAM, 1TB NVMe SSD, NVIDIA GeForce GTX 3070",
     "_class": "br.dev.allissonnunes.algashop.product.catalog.domain.model.product.Product",
@@ -105,6 +108,13 @@
     },
     "lastModifiedBy": {
       "$uuid": "019ac149-6c80-7842-aa23-781d8d390f87"
+    },
+    "category": {
+      "_id": {
+        "$uuid": "c4edfdd5-c71e-47aa-8f00-2925abbbb75f"
+      },
+      "name": "Desktops",
+      "enabled": true
     }
   },
   {
@@ -117,9 +127,7 @@
     "updatedAt": {
       "$date": "2024-06-14T19:59:59.988Z"
     },
-    "version": {
-      "$numberLong": "0"
-    },
+    "version": 0,
     "name": "StellarMatrix Tower Server",
     "brand": "Matrix Computing",
     "regularPrice": {
@@ -130,9 +138,6 @@
     },
     "enabled": false,
     "discountPercentageRounded": 0,
-    "categoryId": {
-      "$uuid": "c4edfdd5-c71e-47aa-8f00-2925abbbb75f"
-    },
     "quantityInStock": 0,
     "description": "Tower server, AMD EPYC, 256GB ECC RAM, 8TB SATA HDD",
     "_class": "br.dev.allissonnunes.algashop.product.catalog.domain.model.product.Product",
@@ -141,6 +146,13 @@
     },
     "lastModifiedBy": {
       "$uuid": "019ac149-6c80-7842-aa23-781d8d390f87"
+    },
+    "category": {
+      "_id": {
+        "$uuid": "c4edfdd5-c71e-47aa-8f00-2925abbbb75f"
+      },
+      "name": "Desktops",
+      "enabled": true
     }
   },
   {
@@ -153,9 +165,7 @@
     "updatedAt": {
       "$date": "2024-06-14T20:01:29.257Z"
     },
-    "version": {
-      "$numberLong": "1"
-    },
+    "version": 1,
     "name": "NebulaLink Desktop Vintage",
     "brand": "Summit Systems",
     "regularPrice": {
@@ -166,9 +176,6 @@
     },
     "enabled": true,
     "discountPercentageRounded": 0,
-    "categoryId": {
-      "$uuid": "c4edfdd5-c71e-47aa-8f00-2925abbbb75f"
-    },
     "quantityInStock": 0,
     "description": "Workstation tower, Celeron D processors, 4GB RAM, HD 100GB",
     "_class": "br.dev.allissonnunes.algashop.product.catalog.domain.model.product.Product",
@@ -177,6 +184,13 @@
     },
     "lastModifiedBy": {
       "$uuid": "019ac149-6c80-7842-aa23-781d8d390f87"
+    },
+    "category": {
+      "_id": {
+        "$uuid": "c4edfdd5-c71e-47aa-8f00-2925abbbb75f"
+      },
+      "name": "Desktops",
+      "enabled": true
     }
   },
   {
@@ -189,9 +203,7 @@
     "updatedAt": {
       "$date": "2024-06-14T20:03:50.716Z"
     },
-    "version": {
-      "$numberLong": "1"
-    },
+    "version": 1,
     "name": "AuraBook RAM DDR4 4000Mhz",
     "brand": "AuraBook",
     "regularPrice": {
@@ -202,9 +214,6 @@
     },
     "enabled": true,
     "discountPercentageRounded": 0,
-    "categoryId": {
-      "$uuid": "ef5981cb-ed9b-42f0-a417-533cc43c605a"
-    },
     "quantityInStock": 50,
     "description": "DDR4 4000Mhz for laptop",
     "_class": "br.dev.allissonnunes.algashop.product.catalog.domain.model.product.Product",
@@ -213,6 +222,13 @@
     },
     "lastModifiedBy": {
       "$uuid": "019ac149-6c80-7842-aa23-781d8d390f87"
+    },
+    "category": {
+      "_id": {
+        "$uuid": "ef5981cb-ed9b-42f0-a417-533cc43c605a"
+      },
+      "name": "Hardware",
+      "enabled": true
     }
   },
   {
@@ -225,9 +241,7 @@
     "updatedAt": {
       "$date": "2024-06-14T20:06:20.123Z"
     },
-    "version": {
-      "$numberLong": "2"
-    },
+    "version": 2,
     "name": "QuantumBlade DDR5 5899Mhz 3x8GB Pack red",
     "brand": " Edge Computing",
     "regularPrice": {
@@ -238,9 +252,6 @@
     },
     "enabled": true,
     "discountPercentageRounded": 4,
-    "categoryId": {
-      "$uuid": "ef5981cb-ed9b-42f0-a417-533cc43c605a"
-    },
     "quantityInStock": 100,
     "description": "DDR5 5899Mhz \n3x8GB Pack ",
     "_class": "br.dev.allissonnunes.algashop.product.catalog.domain.model.product.Product",
@@ -249,6 +260,13 @@
     },
     "lastModifiedBy": {
       "$uuid": "019ac149-6c80-7842-aa23-781d8d390f87"
+    },
+    "category": {
+      "_id": {
+        "$uuid": "ef5981cb-ed9b-42f0-a417-533cc43c605a"
+      },
+      "name": "Hardware",
+      "enabled": true
     }
   },
   {
@@ -261,9 +279,7 @@
     "updatedAt": {
       "$date": "2024-06-14T20:07:00.162Z"
     },
-    "version": {
-      "$numberLong": "1"
-    },
+    "version": 1,
     "name": "QuantumBlade DDR5 5899Mhz 3x8GB Pack Blue",
     "brand": "Edge Computing",
     "regularPrice": {
@@ -274,9 +290,6 @@
     },
     "enabled": true,
     "discountPercentageRounded": 0,
-    "categoryId": {
-      "$uuid": "ef5981cb-ed9b-42f0-a417-533cc43c605a"
-    },
     "quantityInStock": 10,
     "description": "DDR5 5899Mhz 3x8GB",
     "_class": "br.dev.allissonnunes.algashop.product.catalog.domain.model.product.Product",
@@ -285,6 +298,13 @@
     },
     "lastModifiedBy": {
       "$uuid": "019ac149-6c80-7842-aa23-781d8d390f87"
+    },
+    "category": {
+      "_id": {
+        "$uuid": "ef5981cb-ed9b-42f0-a417-533cc43c605a"
+      },
+      "name": "Hardware",
+      "enabled": true
     }
   },
   {
@@ -297,9 +317,7 @@
     "updatedAt": {
       "$date": "2024-06-14T20:17:18.788Z"
     },
-    "version": {
-      "$numberLong": "1"
-    },
+    "version": 1,
     "name": "QuantumBlade DDR5 5899Mhz 3x8GB Pack White",
     "brand": " Edge Computing",
     "regularPrice": {
@@ -310,9 +328,6 @@
     },
     "enabled": true,
     "discountPercentageRounded": 0,
-    "categoryId": {
-      "$uuid": "ef5981cb-ed9b-42f0-a417-533cc43c605a"
-    },
     "quantityInStock": 554,
     "description": "DDR5 5899Mhz 3x8GB",
     "_class": "br.dev.allissonnunes.algashop.product.catalog.domain.model.product.Product",
@@ -321,6 +336,13 @@
     },
     "lastModifiedBy": {
       "$uuid": "019ac149-6c80-7842-aa23-781d8d390f87"
+    },
+    "category": {
+      "_id": {
+        "$uuid": "ef5981cb-ed9b-42f0-a417-533cc43c605a"
+      },
+      "name": "Hardware",
+      "enabled": true
     }
   },
   {
@@ -333,9 +355,7 @@
     "updatedAt": {
       "$date": "2024-06-14T20:20:44.596Z"
     },
-    "version": {
-      "$numberLong": "1"
-    },
+    "version": 1,
     "name": "Matrix T6 Andruuid 12 4G",
     "brand": "Matrix Phones",
     "regularPrice": {
@@ -346,9 +366,6 @@
     },
     "enabled": true,
     "discountPercentageRounded": 17,
-    "categoryId": {
-      "$uuid": "d2468e17-35f2-46e7-b51d-24c01315ab29"
-    },
     "quantityInStock": 88,
     "description": "Andruuid 12\nStorage 30GB\nRAM 4GB\n4G",
     "_class": "br.dev.allissonnunes.algashop.product.catalog.domain.model.product.Product",
@@ -357,6 +374,13 @@
     },
     "lastModifiedBy": {
       "$uuid": "019ac149-6c80-7842-aa23-781d8d390f87"
+    },
+    "category": {
+      "_id": {
+        "$uuid": "d2468e17-35f2-46e7-b51d-24c01315ab29"
+      },
+      "name": "Cell Phones",
+      "enabled": true
     }
   },
   {
@@ -369,9 +393,7 @@
     "updatedAt": {
       "$date": "2024-06-14T20:21:51.190Z"
     },
-    "version": {
-      "$numberLong": "3"
-    },
+    "version": 3,
     "name": "Matrix T3 Andruuid 8 3G",
     "brand": "Matrix Phones",
     "regularPrice": {
@@ -382,9 +404,6 @@
     },
     "enabled": true,
     "discountPercentageRounded": 0,
-    "categoryId": {
-      "$uuid": "d2468e17-35f2-46e7-b51d-24c01315ab29"
-    },
     "quantityInStock": 55,
     "description": "Andruuid 8 \n3G\nStorage 10GB\nRAM 1GB",
     "_class": "br.dev.allissonnunes.algashop.product.catalog.domain.model.product.Product",
@@ -393,6 +412,13 @@
     },
     "lastModifiedBy": {
       "$uuid": "019ac149-6c80-7842-aa23-781d8d390f87"
+    },
+    "category": {
+      "_id": {
+        "$uuid": "d2468e17-35f2-46e7-b51d-24c01315ab29"
+      },
+      "name": "Cell Phones",
+      "enabled": true
     }
   },
   {
@@ -405,9 +431,7 @@
     "updatedAt": {
       "$date": "2024-06-14T20:23:49.658Z"
     },
-    "version": {
-      "$numberLong": "1"
-    },
+    "version": 1,
     "name": "NebulaLink Desktop M7 Intel Core i7, 16GB RGB RAM",
     "brand": " Summit Systems",
     "regularPrice": {
@@ -418,9 +442,6 @@
     },
     "enabled": true,
     "discountPercentageRounded": 12,
-    "categoryId": {
-      "$uuid": "c4edfdd5-c71e-47aa-8f00-2925abbbb75f"
-    },
     "quantityInStock": 155,
     "description": "27-inch 4K monitor, IPS panel, 60Hz refresh rate, HDR support",
     "_class": "br.dev.allissonnunes.algashop.product.catalog.domain.model.product.Product",
@@ -429,6 +450,13 @@
     },
     "lastModifiedBy": {
       "$uuid": "019ac149-6c80-7842-aa23-781d8d390f87"
+    },
+    "category": {
+      "_id": {
+        "$uuid": "c4edfdd5-c71e-47aa-8f00-2925abbbb75f"
+      },
+      "name": "Desktops",
+      "enabled": true
     }
   }
 ]
