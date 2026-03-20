@@ -64,9 +64,9 @@ public class ProductManagementApplicationService {
         product.setName(input.name());
         product.setBrand(input.brand());
         product.setDescription(input.description());
-        product.setRegularPrice(input.regularPrice());
-        product.setSalePrice(input.salePrice());
         product.setCategory(category);
+
+        product.changePrice(input.regularPrice(), input.salePrice());
     }
 
     private Category findCategory(final @NotNull UUID categoryId) {
