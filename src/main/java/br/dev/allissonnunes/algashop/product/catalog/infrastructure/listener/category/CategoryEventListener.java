@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-class CategoryUpdateListener {
+class CategoryEventListener {
 
     private final ProductCategoryUpdaterService productCategoryUpdaterService;
 
