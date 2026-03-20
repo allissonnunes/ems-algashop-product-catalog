@@ -158,7 +158,7 @@ class ProductQueryServiceImpl implements ProductQueryService {
         }
 
         if (filter.getCategoriesId() != null && filter.getCategoriesId().length > 0) {
-            criteriaDefinitions.add(Criteria.where("category.id").in((Object[]) filter.getCategoriesId()));
+            criteriaDefinitions.add(Criteria.where("category._id").in((Object[]) filter.getCategoriesId()));
         }
 
         if (filter.getAddedAtFrom() != null && filter.getAddedAtTo() != null) {

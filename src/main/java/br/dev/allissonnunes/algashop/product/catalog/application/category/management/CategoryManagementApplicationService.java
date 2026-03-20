@@ -1,5 +1,7 @@
 package br.dev.allissonnunes.algashop.product.catalog.application.category.management;
 
+import br.dev.allissonnunes.algashop.product.catalog.application.ApplicationEventPublisher;
+import br.dev.allissonnunes.algashop.product.catalog.application.category.event.CategoryUpdatedEvent;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.category.Category;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.category.CategoryNotFoundException;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.category.CategoryRepository;
@@ -15,6 +17,8 @@ public class CategoryManagementApplicationService {
 
     private final CategoryRepository categoryRepository;
 
+    private final ApplicationEventPublisher publisher;
+
     public UUID create(final CategoryInput input) {
         final Category category = new Category(input.name(), input.enabled());
         categoryRepository.save(category);
@@ -28,6 +32,8 @@ public class CategoryManagementApplicationService {
         category.setEnabled(input.enabled());
 
         categoryRepository.save(category);
+
+        publisher.publish(new CategoryUpdatedEvent(category.getId(), category.getName(), category.getEnabled()));
     }
 
     public void disable(final UUID categoryId) {
@@ -36,6 +42,8 @@ public class CategoryManagementApplicationService {
         category.setEnabled(false);
 
         categoryRepository.save(category);
+
+        publisher.publish(new CategoryUpdatedEvent(category.getId(), category.getName(), category.getEnabled()));
     }
 
     private Category findCategory(final @NotNull UUID categoryId) {
