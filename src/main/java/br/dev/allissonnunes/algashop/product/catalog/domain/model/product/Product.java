@@ -32,7 +32,7 @@ import static java.util.Objects.requireNonNull;
         partialFilter = "{'enabled': true}"
 )
 @Document(collection = "products")
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -79,13 +79,13 @@ public class Product extends AbstractAggregateRoot<Product> {
     private OffsetDateTime lastModifiedAt;
 
     @Builder
-    public Product(final String name,
-                   final String brand,
-                   final String description,
-                   final BigDecimal regularPrice,
-                   final BigDecimal salePrice,
-                   final Boolean enabled,
-                   final Category category) {
+    private Product(final String name,
+                    final String brand,
+                    final String description,
+                    final BigDecimal regularPrice,
+                    final BigDecimal salePrice,
+                    final Boolean enabled,
+                    final Category category) {
         this.setId(IdGenerator.generateTimeBasedUUID());
         this.setName(name);
         this.setBrand(brand);
@@ -96,6 +96,8 @@ public class Product extends AbstractAggregateRoot<Product> {
         this.setSalePrice(salePrice);
         this.setEnabled(enabled);
         this.setCategory(category);
+
+        super.registerEvent(new ProductAddedEvent(this, this.getId()));
     }
 
     public void setName(final String name) {
@@ -223,7 +225,17 @@ public class Product extends AbstractAggregateRoot<Product> {
     }
 
     private void setEnabled(final Boolean enabled) {
-        this.enabled = requireNonNull(enabled, "Product enabled cannot be null");
+        requireNonNull(enabled, "Product enabled cannot be null");
+
+        final var wasEnabled = this.enabled;
+
+        this.enabled = enabled;
+
+        if (Boolean.TRUE.equals(wasEnabled) && !enabled) {
+            super.registerEvent(new ProductDelistedEvent(this, this.getId()));
+        } else if (Boolean.FALSE.equals(wasEnabled) && enabled) {
+            super.registerEvent(new ProductListedEvent(this, this.getId()));
+        }
     }
 
     private void calculateDiscountPercentage() {
