@@ -67,8 +67,8 @@ class ProductQueryServiceImpl implements ProductQueryService {
         criteria.map(Aggregation::match).ifPresent(operations::add);
 
         operations.addAll(Arrays.asList(
-                Aggregation.lookup("categories", "categoryId", "_id", "category"),
-                Aggregation.unwind("category"),
+//                Aggregation.lookup("categories", "categoryId", "_id", "category"),
+//                Aggregation.unwind("category"),
                 Aggregation.sort(sort),
                 defineProductSummaryOutputProjection(),
                 Aggregation.skip(pageRequest.getOffset()),
@@ -158,7 +158,7 @@ class ProductQueryServiceImpl implements ProductQueryService {
         }
 
         if (filter.getCategoriesId() != null && filter.getCategoriesId().length > 0) {
-            criteriaDefinitions.add(Criteria.where("categoryId").in((Object[]) filter.getCategoriesId()));
+            criteriaDefinitions.add(Criteria.where("category.id").in((Object[]) filter.getCategoriesId()));
         }
 
         if (filter.getAddedAtFrom() != null && filter.getAddedAtTo() != null) {

@@ -10,8 +10,6 @@ import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -60,9 +58,9 @@ public class Product {
 
     private Boolean enabled;
 
-    @DocumentReference
-    @Field("categoryId")
-    private Category category;
+    private UUID categoryId;
+
+    private ProductCategory category;
 
     @Version
     private Long version;
@@ -144,7 +142,9 @@ public class Product {
     }
 
     public void setCategory(final Category category) {
-        this.category = requireNonNull(category, "Product category cannot be null");
+        requireNonNull(category, "Product category cannot be null");
+        this.categoryId = category.getId();
+        this.category = ProductCategory.of(category);
     }
 
     public void disable() {
