@@ -8,7 +8,7 @@
     "createdAt": {
       "$date": "2024-04-26T12:53:43.291Z"
     },
-    "updatedAt": {
+    "lastModifiedAt": {
       "$date": "2024-04-26T12:53:43.291Z"
     },
     "createdBy": {
@@ -29,7 +29,7 @@
     "createdAt": {
       "$date": "2024-04-26T12:53:51.612Z"
     },
-    "updatedAt": {
+    "lastModifiedAt": {
       "$date": "2024-04-26T12:53:51.612Z"
     },
     "createdBy": {
@@ -50,7 +50,7 @@
     "createdAt": {
       "$date": "2024-04-26T12:55:03.637Z"
     },
-    "updatedAt": {
+    "lastModifiedAt": {
       "$date": "2024-04-26T12:55:03.637Z"
     },
     "createdBy": {
@@ -71,7 +71,7 @@
     "createdAt": {
       "$date": "2024-04-26T12:57:02.306Z"
     },
-    "updatedAt": {
+    "lastModifiedAt": {
       "$date": "2024-04-26T12:57:02.306Z"
     },
     "createdBy": {

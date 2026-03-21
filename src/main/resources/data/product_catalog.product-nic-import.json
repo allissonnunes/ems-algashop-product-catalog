@@ -6,7 +6,7 @@
     "createdAt": {
       "$date": "2024-06-14T19:46:33.013Z"
     },
-    "updatedAt": {
+    "lastModifiedAt": {
       "$date": "2024-06-14T20:17:51.362Z"
     },
     "version": {
@@ -46,7 +46,7 @@
     "createdAt": {
       "$date": "2024-06-14T19:54:56.946Z"
     },
-    "updatedAt": {
+    "lastModifiedAt": {
       "$date": "2024-06-14T20:17:39.403Z"
     },
     "version": {
@@ -86,7 +86,7 @@
     "createdAt": {
       "$date": "2024-06-14T19:56:35.478Z"
     },
-    "updatedAt": {
+    "lastModifiedAt": {
       "$date": "2024-06-14T19:57:24.867Z"
     },
     "version": 3,
@@ -124,7 +124,7 @@
     "createdAt": {
       "$date": "2024-06-14T19:59:59.988Z"
     },
-    "updatedAt": {
+    "lastModifiedAt": {
       "$date": "2024-06-14T19:59:59.988Z"
     },
     "version": 0,
@@ -162,7 +162,7 @@
     "createdAt": {
       "$date": "2024-06-14T20:01:16.597Z"
     },
-    "updatedAt": {
+    "lastModifiedAt": {
       "$date": "2024-06-14T20:01:29.257Z"
     },
     "version": 1,
@@ -200,7 +200,7 @@
     "createdAt": {
       "$date": "2024-06-14T20:03:36.802Z"
     },
-    "updatedAt": {
+    "lastModifiedAt": {
       "$date": "2024-06-14T20:03:50.716Z"
     },
     "version": 1,
@@ -238,7 +238,7 @@
     "createdAt": {
       "$date": "2024-06-14T20:06:01.812Z"
     },
-    "updatedAt": {
+    "lastModifiedAt": {
       "$date": "2024-06-14T20:06:20.123Z"
     },
     "version": 2,
@@ -276,7 +276,7 @@
     "createdAt": {
       "$date": "2024-06-14T20:06:52.349Z"
     },
-    "updatedAt": {
+    "lastModifiedAt": {
       "$date": "2024-06-14T20:07:00.162Z"
     },
     "version": 1,
@@ -314,7 +314,7 @@
     "createdAt": {
       "$date": "2024-06-14T20:17:12.682Z"
     },
-    "updatedAt": {
+    "lastModifiedAt": {
       "$date": "2024-06-14T20:17:18.788Z"
     },
     "version": 1,
@@ -352,7 +352,7 @@
     "createdAt": {
       "$date": "2024-06-14T20:20:31.941Z"
     },
-    "updatedAt": {
+    "lastModifiedAt": {
       "$date": "2024-06-14T20:20:44.596Z"
     },
     "version": 1,
@@ -390,7 +390,7 @@
     "createdAt": {
       "$date": "2024-06-14T20:21:30.683Z"
     },
-    "updatedAt": {
+    "lastModifiedAt": {
       "$date": "2024-06-14T20:21:51.190Z"
     },
     "version": 3,
@@ -428,7 +428,7 @@
     "createdAt": {
       "$date": "2024-06-14T20:23:33.439Z"
     },
-    "updatedAt": {
+    "lastModifiedAt": {
       "$date": "2024-06-14T20:23:49.658Z"
     },
     "version": 1,
