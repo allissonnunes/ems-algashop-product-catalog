@@ -4,9 +4,11 @@ logging:
     org.mongodb.driver.protocol.query: DEBUG
     org.mongodb.driver.connection: DEBUG
 
+server.port: 8083
+
 spring:
   mongodb:
-    uri: mongodb://root:algashop@localhost:27017/product_catalog_test?authSource=admin
+    uri: mongodb://root:algashop@localhost:27017/product_catalog?authSource=admin
 
 algashop:
   dataloader:

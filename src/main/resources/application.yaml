@@ -1,25 +1,14 @@
-server.port: 8083
-
 spring:
-  application:
-    name: product-catalog
-  data:
-    mongodb:
-      auto-index-creation: true
-  mongodb:
-    uri: mongodb://root:algashop@localhost:27017/product_catalog?authSource=admin
-    representation:
-      uuid: standard
-  web:
-    locale-resolver: fixed
-    locale: en_US
-
-algashop:
-  dataloader:
-    enabled: true
-    auto-delete: true
-    document-locations:
-      - location: classpath:data/product_catalog.product-nic-import.json
-        collection-name: products
-      - location: classpath:data/product_catalog.category-import.json
-        collection-name: categories
+  profiles:
+    active: development
+    group:
+      development:
+        - base
+        - development-env
+      docker:
+        - base
+        - development-env
+        - docker-env
+      production:
+        - base
+        - production-env
