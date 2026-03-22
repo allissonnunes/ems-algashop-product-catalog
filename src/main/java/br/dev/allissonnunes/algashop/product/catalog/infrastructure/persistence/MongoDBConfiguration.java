@@ -1,6 +1,6 @@
 package br.dev.allissonnunes.algashop.product.catalog.infrastructure.persistence;
 
-import org.springframework.boot.mongodb.autoconfigure.MongoClientSettingsBuilderCustomizer;
+//import org.springframework.boot.mongodb.autoconfigure.MongoClientSettingsBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
@@ -12,32 +12,32 @@ import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+//import java.util.concurrent.TimeUnit;
 
 @Configuration
 class MongoDBConfiguration {
 
-    @Bean
-    MongoClientSettingsBuilderCustomizer customizer() {
-        return settings -> settings
-                .applyToConnectionPoolSettings(builder ->
-                        builder
-                                .minSize(20)
-                                .maxSize(200)
-                                .maxWaitTime(500L, TimeUnit.MILLISECONDS)
-                                .maxConnectionLifeTime(30L, TimeUnit.MINUTES)
-                                .maxConnectionIdleTime(5L, TimeUnit.MINUTES)
-                )
-                .applyToSocketSettings(builder ->
-                        builder
-                                .connectTimeout(2L, TimeUnit.SECONDS)
-                                .readTimeout(3L, TimeUnit.SECONDS)
-                )
-                .applyToServerSettings(builder ->
-                        builder
-                                .heartbeatFrequency(2L, TimeUnit.SECONDS)
-                );
-    }
+//    @Bean
+//    MongoClientSettingsBuilderCustomizer customizer() {
+//        return settings -> settings
+//                .applyToConnectionPoolSettings(builder ->
+//                        builder
+//                                .minSize(20)
+//                                .maxSize(200)
+//                                .maxWaitTime(500L, TimeUnit.MILLISECONDS)
+//                                .maxConnectionLifeTime(30L, TimeUnit.MINUTES)
+//                                .maxConnectionIdleTime(5L, TimeUnit.MINUTES)
+//                )
+//                .applyToSocketSettings(builder ->
+//                        builder
+//                                .connectTimeout(2L, TimeUnit.SECONDS)
+//                                .readTimeout(3L, TimeUnit.SECONDS)
+//                )
+//                .applyToServerSettings(builder ->
+//                        builder
+//                                .heartbeatFrequency(2L, TimeUnit.SECONDS)
+//                );
+//    }
 
     @Bean
     MongoCustomConversions mongoCustomConversions() {

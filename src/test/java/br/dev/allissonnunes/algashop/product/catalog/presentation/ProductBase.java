@@ -52,16 +52,15 @@ abstract class ProductBase {
 
     private @NonNull Answer<Object> filterProductsAnswer() {
         return invocation -> {
-            int page = invocation.getArgument(0);
-            int size = invocation.getArgument(1);
+            final ProductFilter page = invocation.getArgument(0);
 
             return PageModel.<ProductDetailOutput>builder()
                     .content(List.of(
                             ProductDetailOutputTestDataBuilder.aProduct().build(),
                             ProductDetailOutputTestDataBuilder.aProductAlt1().build()
                     ))
-                    .number(page)
-                    .size(size)
+                    .number(page.getPage())
+                    .size(page.getSize())
                     .totalPages(1)
                     .totalElements(2L)
                     .build();

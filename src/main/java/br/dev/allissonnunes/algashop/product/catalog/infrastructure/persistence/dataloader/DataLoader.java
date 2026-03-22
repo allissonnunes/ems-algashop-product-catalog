@@ -20,7 +20,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-class DataLoader implements ApplicationRunner {
+public class DataLoader implements ApplicationRunner {
 
     private final DataLoaderProperties properties;
 

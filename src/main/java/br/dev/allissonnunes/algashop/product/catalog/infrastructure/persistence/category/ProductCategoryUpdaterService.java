@@ -9,6 +9,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class ProductCategoryUpdaterService {
@@ -21,7 +23,9 @@ public class ProductCategoryUpdaterService {
 
         final Update update = new Update()
                 .set("category.name", event.name())
-                .set("category.enabled", event.enabled());
+                .set("category.enabled", event.enabled())
+                .set("lastModifiedAt", OffsetDateTime.now())
+                .inc("version", 1);
 
         mongoOperations.updateMulti(query, update, Product.class);
     }

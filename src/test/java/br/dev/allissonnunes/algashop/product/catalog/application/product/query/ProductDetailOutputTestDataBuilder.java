@@ -1,7 +1,7 @@
 package br.dev.allissonnunes.algashop.product.catalog.application.product.query;
 
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public class ProductDetailOutputTestDataBuilder {
@@ -13,7 +13,7 @@ public class ProductDetailOutputTestDataBuilder {
     public static ProductDetailOutput.ProductDetailOutputBuilder aProduct() {
         return ProductDetailOutput.builder()
                 .id(UUID.randomUUID())
-                .addedAt(Instant.now())
+                .addedAt(OffsetDateTime.now())
                 .name("Notebook X11")
                 .brand("Deep Diver")
                 .regularPrice(new BigDecimal("1500.00"))
@@ -30,7 +30,7 @@ public class ProductDetailOutputTestDataBuilder {
     public static ProductDetailOutput.ProductDetailOutputBuilder aProductAlt1() {
         return ProductDetailOutput.builder()
                 .id(UUID.randomUUID())
-                .addedAt(Instant.now())
+                .addedAt(OffsetDateTime.now())
                 .name("Desktop I9000")
                 .brand("Deep Diver")
                 .regularPrice(new BigDecimal("3500.00"))

@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @Component
 @ConfigurationProperties(prefix = "algashop.dataloader")
-class DataLoaderProperties {
+public class DataLoaderProperties {
 
     private boolean enabled;
 

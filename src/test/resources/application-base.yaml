@@ -1,0 +1,30 @@
+server.port: 8083
+
+logging:
+  level:
+    org.mongodb.driver.protocol.command: DEBUG
+    org.mongodb.driver.protocol.query: DEBUG
+    org.mongodb.driver.connection: DEBUG
+
+spring:
+  application:
+    name: product-catalog
+  data:
+    mongodb:
+      auto-index-creation: true
+  mongodb:
+    representation:
+      uuid: standard
+  web:
+    locale-resolver: fixed
+    locale: en_US
+
+algashop:
+  dataloader:
+    enabled: true
+    auto-delete: true
+    document-locations:
+      - location: classpath:data/product_catalog.product-nic-import.json
+        collection-name: products
+      - location: classpath:data/product_catalog.category-import.json
+        collection-name: categories
