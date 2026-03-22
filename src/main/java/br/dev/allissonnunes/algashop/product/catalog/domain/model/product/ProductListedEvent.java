@@ -8,8 +8,8 @@ import org.springframework.context.ApplicationEvent;
 import java.util.UUID;
 
 @Getter
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
+@ToString
 public final class ProductListedEvent extends ApplicationEvent {
 
     private final UUID productId;

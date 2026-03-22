@@ -62,14 +62,26 @@ class ProductController {
     }
 
     @DeleteMapping("/{productId}/enable")
-    ResponseEntity<?> disable(@PathVariable UUID productId) {
+    ResponseEntity<?> disable(@PathVariable final UUID productId) {
         productManagementApplicationService.disable(productId);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{productId}/enable")
-    ResponseEntity<?> enable(@PathVariable UUID productId) {
+    ResponseEntity<?> enable(@PathVariable final UUID productId) {
         productManagementApplicationService.enable(productId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{productId}/restock")
+    ResponseEntity<?> restock(@PathVariable final UUID productId, @RequestBody final @Valid ProductQuantityModel quantityModel) {
+        productManagementApplicationService.restock(productId, quantityModel.quantity());
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{productId}/withdraw")
+    ResponseEntity<?> withdraw(@PathVariable final UUID productId, @RequestBody final @Valid ProductQuantityModel quantityModel) {
+        productManagementApplicationService.withdraw(productId, quantityModel.quantity());
         return ResponseEntity.noContent().build();
     }
 

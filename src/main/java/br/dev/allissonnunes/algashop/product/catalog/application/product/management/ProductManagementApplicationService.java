@@ -6,6 +6,7 @@ import br.dev.allissonnunes.algashop.product.catalog.domain.model.category.Categ
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.product.Product;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.product.ProductNotFoundException;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.product.ProductRepository;
+import br.dev.allissonnunes.algashop.product.catalog.domain.model.product.StockService;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,8 @@ public class ProductManagementApplicationService {
     private final ProductRepository productRepository;
 
     private final CategoryRepository categoryRepository;
+
+    private final StockService stockService;
 
     public UUID create(final ProductInput input) {
         final Product product = createProduct(input);
@@ -42,6 +45,16 @@ public class ProductManagementApplicationService {
         final Product product = findProduct(productId);
         product.enable();
         productRepository.save(product);
+    }
+
+    public void restock(final UUID productId, final int quantity) {
+        final Product product = findProduct(productId);
+        stockService.restock(product, quantity);
+    }
+
+    public void withdraw(final UUID productId, final int quantity) {
+        final Product product = findProduct(productId);
+        stockService.withdraw(product, quantity);
     }
 
     private Product createProduct(final ProductInput input) {

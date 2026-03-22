@@ -10,11 +10,11 @@ import java.util.UUID;
 @Getter
 @EqualsAndHashCode(callSuper = false)
 @ToString
-public final class ProductAddedEvent extends ApplicationEvent {
+public final class ProductRestockedEvent extends ApplicationEvent {
 
     private final UUID productId;
 
-    public ProductAddedEvent(final Object source, final UUID productId) {
+    public ProductRestockedEvent(final Object source, final UUID productId) {
         super(source);
         this.productId = productId;
     }

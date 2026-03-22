@@ -34,4 +34,14 @@ class ProductEventListener {
         log.info("ProductDelistedEvent - {}", event);
     }
 
+    @EventListener
+    public void on(final ProductRestockedEvent event) {
+        log.info("ProductRestockedEvent - {}", event);
+    }
+
+    @EventListener
+    public void on(final ProductSoldOutEvent event) {
+        log.info("ProductSoldOutEvent - {}", event);
+    }
+
 }

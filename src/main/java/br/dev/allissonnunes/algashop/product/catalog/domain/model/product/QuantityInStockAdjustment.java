@@ -14,6 +14,14 @@ public interface QuantityInStockAdjustment {
             int newQuantity
     ) {
 
+        public boolean isOutOfStock() {
+            return newQuantity == 0 && previousQuantity > 0;
+        }
+
+        public boolean isRestocked() {
+            return newQuantity > 0 && previousQuantity == 0;
+        }
+
     }
 
 }
