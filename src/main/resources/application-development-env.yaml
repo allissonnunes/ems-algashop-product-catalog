@@ -8,7 +8,7 @@ server.port: 8083
 
 spring:
   mongodb:
-    uri: mongodb://root:algashop@localhost:27017/product_catalog?authSource=admin
+    uri: mongodb://localhost:27017,localhost:27018,localhost:27019/product_catalog?replicaSet=rs0
 
 algashop:
   dataloader:

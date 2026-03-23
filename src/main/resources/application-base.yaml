@@ -10,3 +10,8 @@ spring:
   web:
     locale-resolver: fixed
     locale: en_US
+
+algashop:
+  dataloader:
+    enabled: false
+    auto-delete: false

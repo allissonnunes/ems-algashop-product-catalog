@@ -3,13 +3,11 @@ package br.dev.allissonnunes.algashop.product.catalog.application.product.manage
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.category.Category;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.category.CategoryNotFoundException;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.category.CategoryRepository;
-import br.dev.allissonnunes.algashop.product.catalog.domain.model.product.Product;
-import br.dev.allissonnunes.algashop.product.catalog.domain.model.product.ProductNotFoundException;
-import br.dev.allissonnunes.algashop.product.catalog.domain.model.product.ProductRepository;
-import br.dev.allissonnunes.algashop.product.catalog.domain.model.product.StockService;
+import br.dev.allissonnunes.algashop.product.catalog.domain.model.product.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -20,6 +18,8 @@ public class ProductManagementApplicationService {
     private final ProductRepository productRepository;
 
     private final CategoryRepository categoryRepository;
+
+    private final StockMovementRepository stockMovementRepository;
 
     private final StockService stockService;
 
@@ -47,14 +47,18 @@ public class ProductManagementApplicationService {
         productRepository.save(product);
     }
 
+    @Transactional
     public void restock(final UUID productId, final int quantity) {
         final Product product = findProduct(productId);
-        stockService.restock(product, quantity);
+        final StockMovement stockMovement = stockService.restock(product, quantity);
+        stockMovementRepository.save(stockMovement);
     }
 
+    @Transactional
     public void withdraw(final UUID productId, final int quantity) {
         final Product product = findProduct(productId);
-        stockService.withdraw(product, quantity);
+        final StockMovement stockMovement = stockService.withdraw(product, quantity);
+        stockMovementRepository.save(stockMovement);
     }
 
     private Product createProduct(final ProductInput input) {

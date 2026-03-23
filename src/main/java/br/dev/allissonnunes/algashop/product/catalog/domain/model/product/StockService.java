@@ -15,7 +15,7 @@ public class StockService {
 
     private final DomainEventPublisher domainEventPublisher;
 
-    public void restock(final Product product, final int quantity) {
+    public StockMovement restock(final Product product, final int quantity) {
         requireNonNull(product, "product cannot be null");
         if (quantity < 1) {
             throw new IllegalArgumentException("quantity must be positive");
@@ -31,9 +31,17 @@ public class StockService {
         if (increaseResult.isRestocked()) {
             domainEventPublisher.publish(new ProductRestockedEvent(this, product.getId()));
         }
+
+        return StockMovement.builder()
+                .productId(product.getId())
+                .movementQuantity(quantity)
+                .previousQuantity(increaseResult.previousQuantity())
+                .newQuantity(increaseResult.newQuantity())
+                .type(StockMovement.MovementType.STOCK_IN)
+                .build();
     }
 
-    public void withdraw(final Product product, final int quantity) {
+    public StockMovement withdraw(final Product product, final int quantity) {
         requireNonNull(product, "product cannot be null");
         if (quantity < 1) {
             throw new IllegalArgumentException("quantity must be positive");
@@ -49,6 +57,14 @@ public class StockService {
         if (decreaseResult.isOutOfStock()) {
             domainEventPublisher.publish(new ProductSoldOutEvent(this, product.getId()));
         }
+
+        return StockMovement.builder()
+                .productId(product.getId())
+                .movementQuantity(quantity)
+                .previousQuantity(decreaseResult.previousQuantity())
+                .newQuantity(decreaseResult.newQuantity())
+                .type(StockMovement.MovementType.STOCK_OUT)
+                .build();
     }
 
 }
