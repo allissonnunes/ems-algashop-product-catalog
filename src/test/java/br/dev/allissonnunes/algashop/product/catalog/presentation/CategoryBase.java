@@ -7,9 +7,12 @@ import br.dev.allissonnunes.algashop.product.catalog.application.category.manage
 import br.dev.allissonnunes.algashop.product.catalog.application.category.query.CategoryDetailOutputTestDataBuilder;
 import br.dev.allissonnunes.algashop.product.catalog.application.category.query.CategoryFilter;
 import br.dev.allissonnunes.algashop.product.catalog.application.category.query.CategoryQueryService;
+import br.dev.allissonnunes.algashop.product.catalog.infrastructure.utility.mapper.mapstruct.Tools;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.List;
@@ -19,7 +22,21 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
-@WebMvcTest(CategoryController.class)
+@WebMvcTest(
+        controllers = CategoryController.class,
+        includeFilters = {
+                @ComponentScan.Filter(
+                        type = FilterType.REGEX,
+                        pattern = "br.dev.allissonnunes.algashop.product.catalog.infrastructure.utility.*(Configuration)"
+                ),
+                @ComponentScan.Filter(
+                        type = FilterType.ASSIGNABLE_TYPE,
+                        classes = {
+                                Tools.class
+                        }
+                )
+        }
+)
 @ExtendWith(ContractBaseExtension.class)
 abstract class CategoryBase {
 

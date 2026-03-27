@@ -9,11 +9,14 @@ import br.dev.allissonnunes.algashop.product.catalog.application.product.query.P
 import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductFilter;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductQueryService;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.DomainEntityNotFoundException;
+import br.dev.allissonnunes.algashop.product.catalog.infrastructure.utility.mapper.mapstruct.Tools;
 import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.stubbing.Answer;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.List;
@@ -23,7 +26,21 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
-@WebMvcTest(ProductController.class)
+@WebMvcTest(
+        controllers = ProductController.class,
+        includeFilters = {
+                @ComponentScan.Filter(
+                        type = FilterType.REGEX,
+                        pattern = "br.dev.allissonnunes.algashop.product.catalog.infrastructure.utility.*(Configuration)"
+                ),
+                @ComponentScan.Filter(
+                        type = FilterType.ASSIGNABLE_TYPE,
+                        classes = {
+                                Tools.class
+                        }
+                )
+        }
+)
 @ExtendWith(ContractBaseExtension.class)
 abstract class ProductBase {
 
