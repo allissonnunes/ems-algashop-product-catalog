@@ -1,15 +1,17 @@
 package br.dev.allissonnunes.algashop.product.catalog.domain.model.product;
 
-
+import br.dev.allissonnunes.algashop.product.catalog.TestcontainersConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.mongodb.test.autoconfigure.DataMongoTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.Import;
 
 import java.util.List;
 
+@Import({ TestcontainersConfiguration.class })
 @DataMongoTest(includeFilters = {
         @ComponentScan.Filter(
                 type = FilterType.REGEX,

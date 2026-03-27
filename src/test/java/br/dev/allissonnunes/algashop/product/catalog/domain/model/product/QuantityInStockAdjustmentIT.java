@@ -1,5 +1,6 @@
 package br.dev.allissonnunes.algashop.product.catalog.domain.model.product;
 
+import br.dev.allissonnunes.algashop.product.catalog.TestcontainersConfiguration;
 import br.dev.allissonnunes.algashop.product.catalog.infrastructure.persistence.dataloader.DataLoader;
 import br.dev.allissonnunes.algashop.product.catalog.infrastructure.persistence.dataloader.DataLoaderProperties;
 import br.dev.allissonnunes.algashop.product.catalog.infrastructure.persistence.product.QuantityInStockAdjustmentMongoDB;
@@ -12,11 +13,13 @@ import org.springframework.boot.DefaultApplicationArguments;
 import org.springframework.boot.data.mongodb.test.autoconfigure.DataMongoTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.Import;
 
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Import({ TestcontainersConfiguration.class })
 @DataMongoTest(includeFilters = {
         @ComponentScan.Filter(
                 type = FilterType.REGEX,
