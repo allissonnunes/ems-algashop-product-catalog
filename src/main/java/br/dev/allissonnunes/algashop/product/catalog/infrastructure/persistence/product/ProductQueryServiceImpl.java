@@ -12,6 +12,7 @@ import br.dev.allissonnunes.algashop.product.catalog.domain.model.product.Produc
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.jspecify.annotations.NonNull;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -37,6 +38,7 @@ class ProductQueryServiceImpl implements ProductQueryService {
 
     private final MongoOperations mongoOperations;
 
+    @Cacheable(cacheNames = "algashop:products:v1", key = "#productId")
     @Override
     public ProductDetailOutput findById(final UUID productId) {
         return productRepository.findById(productId)
