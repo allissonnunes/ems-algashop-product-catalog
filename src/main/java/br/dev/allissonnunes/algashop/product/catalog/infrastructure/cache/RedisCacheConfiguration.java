@@ -20,6 +20,7 @@ class RedisCacheConfiguration {
         final var classLoader = Thread.currentThread().getContextClassLoader();
         final var defaultCacheConfig = org.springframework.data.redis.cache.RedisCacheConfiguration
                 .defaultCacheConfig()
+                .entryTtl(Duration.ofMinutes(1L))
                 .computePrefixWith(cacheName -> cacheName + ":")
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(
                         new JdkSerializationRedisSerializer(classLoader)
