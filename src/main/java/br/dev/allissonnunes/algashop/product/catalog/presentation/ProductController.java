@@ -10,9 +10,11 @@ import br.dev.allissonnunes.algashop.product.catalog.application.product.query.P
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.category.CategoryNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.CacheControl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
 import java.util.UUID;
 
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequestUri;
@@ -20,6 +22,7 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 @RestController
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 class ProductController {
 
     private final ProductManagementApplicationService productManagementApplicationService;
@@ -46,7 +49,14 @@ class ProductController {
     @GetMapping("/{productId}")
     ResponseEntity<ProductDetailOutput> findProductById(@PathVariable final UUID productId) {
         final ProductDetailOutput productDetail = productQueryService.findById(productId);
-        return ResponseEntity.ok(productDetail);
+        final CacheControl cacheControl = CacheControl
+                .maxAge(Duration.ofMinutes(1L))
+                .cachePublic();
+        return ResponseEntity.ok()
+                .cacheControl(cacheControl)
+                .eTag("product:id:" + productDetail.id() + ":v:" + productDetail.version())
+                .lastModified(productDetail.lastModifiedAt().toInstant())
+                .body(productDetail);
     }
 
     @GetMapping

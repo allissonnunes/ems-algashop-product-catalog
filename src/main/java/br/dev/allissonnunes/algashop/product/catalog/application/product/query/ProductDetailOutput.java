@@ -2,6 +2,7 @@ package br.dev.allissonnunes.algashop.product.catalog.application.product.query;
 
 import lombok.Builder;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -21,7 +22,9 @@ public record ProductDetailOutput(
         Integer quantityInStock,
         Integer discountPercentageRounded,
         CategoryMinimalOutput category,
-        String description
-) {
+        String description,
+        Long version,
+        OffsetDateTime lastModifiedAt
+) implements Serializable {
 
 }
