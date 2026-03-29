@@ -24,7 +24,9 @@ public class ProductDetailOutputTestDataBuilder {
                         .id(UUID.randomUUID())
                         .name("Notebook")
                         .build())
-                .description("A Gamer Notebook");
+                .description("A Gamer Notebook")
+                .version(0L)
+                .lastModifiedAt(OffsetDateTime.now());
     }
 
     public static ProductDetailOutput.ProductDetailOutputBuilder aProductAlt1() {
@@ -41,7 +43,9 @@ public class ProductDetailOutputTestDataBuilder {
                         .id(UUID.randomUUID())
                         .name("Desktop")
                         .build())
-                .description("A Gamer Desktop");
+                .description("A Gamer Desktop")
+                .version(0L)
+                .lastModifiedAt(OffsetDateTime.now());
     }
 
 }

@@ -53,14 +53,19 @@ abstract class ProductBase {
     @BeforeEach
     void setUp() {
         final UUID validProductId = UUID.fromString("019bb3a0-5c32-7685-b712-9dd8373525d3");
+
         when(productQueryService.findById(eq(validProductId)))
                 .thenReturn(ProductDetailOutputTestDataBuilder.aProduct().id(validProductId).build());
 
         when(productQueryService.filter(any(ProductFilter.class)))
                 .thenAnswer(filterProductsAnswer());
 
+        final ProductDetailOutput productDetailOutput = ProductDetailOutputTestDataBuilder.aProduct().id(validProductId).build();
         when(productManagementApplicationService.create(any(ProductInput.class)))
-                .thenReturn(validProductId);
+                .thenReturn(productDetailOutput);
+
+        when(productManagementApplicationService.update(any(UUID.class), any(ProductInput.class)))
+                .thenReturn(productDetailOutput);
 
         final UUID invalidProductId = UUID.fromString("019bd762-8fed-7119-89b3-ae8c733727e8");
         when(productQueryService.findById(invalidProductId))
