@@ -3,6 +3,7 @@ package br.dev.allissonnunes.algashop.product.catalog.application;
 import lombok.Builder;
 import org.springframework.data.domain.Page;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,7 +17,7 @@ public record PageModel<T>(
         int size,
         int totalPages,
         long totalElements
-) {
+) implements Serializable {
 
     public PageModel {
         content = requireNonNullElseGet(content, ArrayList::new);
