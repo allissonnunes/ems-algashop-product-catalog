@@ -31,32 +31,27 @@ class ProductController {
 
     @PostMapping
     ResponseEntity<ProductDetailOutput> createProduct(@RequestBody final @Valid ProductInput input) {
-        final UUID productId;
         try {
-            productId = productManagementApplicationService.create(input);
+            final ProductDetailOutput productDetailOutput = productManagementApplicationService.create(input);
+
+            final var location = fromCurrentRequestUri().path("/{productId}")
+                    .buildAndExpand(productDetailOutput.id())
+                    .toUri();
+
+            return ResponseEntity.created(location).body(productDetailOutput);
         } catch (final CategoryNotFoundException e) {
             throw new UnprocessableContentException(e.getMessage(), e);
         }
-        final ProductDetailOutput productDetailOutput = productQueryService.findById(productId);
-
-        final var location = fromCurrentRequestUri().path("/{productId}")
-                .buildAndExpand(productDetailOutput.id())
-                .toUri();
-
-        return ResponseEntity.created(location).body(productDetailOutput);
     }
 
     @GetMapping("/{productId}")
     ResponseEntity<ProductDetailOutput> findProductById(@PathVariable final UUID productId) {
-        final ProductDetailOutput productDetail = productQueryService.findById(productId);
-        final CacheControl cacheControl = CacheControl
-                .maxAge(Duration.ofMinutes(1L))
-                .cachePublic();
+        final ProductDetailOutput productDetailOutput = productQueryService.findById(productId);
         return ResponseEntity.ok()
-                .cacheControl(cacheControl)
-                .eTag("product:id:" + productDetail.id() + ":v:" + productDetail.version())
-                .lastModified(productDetail.lastModifiedAt().toInstant())
-                .body(productDetail);
+                .cacheControl(CacheControl.maxAge(Duration.ofMinutes(1L)).cachePublic())
+                .eTag("product:id:" + productDetailOutput.id() + ":v:" + productDetailOutput.version())
+                .lastModified(productDetailOutput.lastModifiedAt().toInstant())
+                .body(productDetailOutput);
     }
 
     @GetMapping
@@ -66,9 +61,7 @@ class ProductController {
 
     @PutMapping("/{productId}")
     ResponseEntity<ProductDetailOutput> updateProductById(@PathVariable final UUID productId, @RequestBody final @Valid ProductInput input) {
-        productManagementApplicationService.update(productId, input);
-        final ProductDetailOutput updatedProductDetail = productQueryService.findById(productId);
-        return ResponseEntity.ok(updatedProductDetail);
+        return ResponseEntity.ok(productManagementApplicationService.update(productId, input));
     }
 
     @DeleteMapping("/{productId}/enable")

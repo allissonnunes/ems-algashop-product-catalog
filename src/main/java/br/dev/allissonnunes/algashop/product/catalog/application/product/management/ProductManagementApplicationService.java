@@ -1,11 +1,15 @@
 package br.dev.allissonnunes.algashop.product.catalog.application.product.management;
 
+import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductDetailOutput;
+import br.dev.allissonnunes.algashop.product.catalog.application.utility.Mapper;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.category.Category;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.category.CategoryNotFoundException;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.category.CategoryRepository;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.product.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,18 +27,25 @@ public class ProductManagementApplicationService {
 
     private final StockService stockService;
 
-    public UUID create(final ProductInput input) {
+    private final Mapper mapper;
+
+    @CachePut(cacheNames = "algashop:products:v1", key = "#result.id()", condition = "#input.enabled()")
+    public ProductDetailOutput create(final ProductInput input) {
         final Product product = createProduct(input);
         productRepository.save(product);
-        return product.getId();
+        return mapper.map(product, ProductDetailOutput.class);
     }
 
-    public void update(final UUID productId, final ProductInput input) {
+    @CachePut(cacheNames = "algashop:products:v1", key = "#productId", condition = "#input.enabled() == true")
+    @CacheEvict(cacheNames = "algashop:products:v1", key = "#productId", condition = "#input.enabled() == false")
+    public ProductDetailOutput update(final UUID productId, final ProductInput input) {
         final Product product = findProduct(productId);
         updateProduct(product, input);
         productRepository.save(product);
+        return mapper.map(product, ProductDetailOutput.class);
     }
 
+    @CacheEvict(cacheNames = "algashop:products:v1", key = "#productId")
     public void disable(final UUID productId) {
         final Product product = findProduct(productId);
         product.disable();
