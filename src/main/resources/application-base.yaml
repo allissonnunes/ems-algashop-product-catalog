@@ -2,10 +2,20 @@ management:
   endpoint:
     health:
       show-details: always
+      group:
+        readiness:
+          include:
+            - mongo
+            - readinessState
+        liveness:
+          include:
+            - livenessState
   endpoints:
     web:
       exposure:
-        include: health,info
+        include:
+          - health
+          - info
 
 spring:
   application:
