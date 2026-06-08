@@ -1,0 +1,19 @@
+logging:
+  level:
+    net.ttddyy.dsproxy.listener: DEBUG
+
+server:
+  port: 8080
+
+spring:
+  cache:
+    type: redis
+  data:
+    redis:
+      host: algashop-redis
+      port: 6379
+      password: algashop
+      database: 0
+      timeout: 600
+  mongodb:
+    uri: mongodb://algashop-mongodb-1:27017,algashop-mongodb-2:27018,algashop-mongodb-3:27019/product_catalog?replicaSet=rs0
