@@ -1,12 +1,17 @@
 package br.dev.allissonnunes.algashop.product.catalog.infrastructure.utility.mapper.mapstruct;
 
 import br.dev.allissonnunes.algashop.product.catalog.infrastructure.utility.Slugfier;
+import br.dev.allissonnunes.algashop.product.catalog.infrastructure.utility.mapper.ApplicationMappingProperties;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.mapstruct.Named;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public final class Tools {
+
+    private final ApplicationMappingProperties mappingProperties;
 
     @Named("shortDescription")
     public String shortDescription(final String description) {
@@ -22,6 +27,11 @@ public final class Tools {
             return null;
         }
         return Slugfier.slugify(text);
+    }
+
+    @Named("imageUrl")
+    public String imageUrl(final String imageName) {
+        return mappingProperties.getImageStorageUrl() + "/" + imageName;
     }
 
 }

@@ -23,6 +23,7 @@ public record ProductDetailOutput(
         Integer discountPercentageRounded,
         CategoryMinimalOutput category,
         String description,
+        ImageOutput mainImage,
         Long version,
         OffsetDateTime lastModifiedAt
 ) implements Serializable {

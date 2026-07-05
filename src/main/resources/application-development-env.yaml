@@ -28,3 +28,5 @@ algashop:
         collection-name: products
       - location: classpath:data/product_catalog.category-import.json
         collection-name: categories
+  mapping:
+    image-storage-url: http://localhost:4566/algashop-product-image

@@ -22,7 +22,8 @@ public record ProductSummaryOutput(
         Integer quantityInStock,
         Integer discountPercentageRounded,
         CategoryMinimalOutput category,
-        String shortDescription
+        String shortDescription,
+        ImageOutput mainImage
 ) {
 
     public ProductSummaryOutput {

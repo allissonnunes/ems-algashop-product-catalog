@@ -5,6 +5,7 @@ import br.dev.allissonnunes.algashop.product.catalog.domain.model.IdGenerator;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.category.Category;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
+import org.jspecify.annotations.NonNull;
 import org.springframework.data.annotation.*;
 import org.springframework.data.domain.AbstractAggregateRoot;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
@@ -16,8 +17,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Instant;
 import java.time.OffsetDateTime;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 import static java.util.Objects.requireNonNull;
 
@@ -62,6 +62,10 @@ public class Product extends AbstractAggregateRoot<Product> {
     private Boolean enabled;
 
     private ProductCategory category;
+
+    private Image mainImage;
+
+    private Set<Image> images = new LinkedHashSet<>();
 
     @Version
     private Long version;
@@ -143,6 +147,47 @@ public class Product extends AbstractAggregateRoot<Product> {
     public void setCategory(final Category category) {
         requireNonNull(category, "Product category cannot be null");
         this.category = ProductCategory.of(category);
+    }
+
+    public Optional<Image> getImage(final UUID imageId) {
+        return this.images.stream()
+                .filter(image -> Objects.equals(image.getId(), imageId))
+                .findFirst();
+    }
+
+    public Set<Image> getImages() {
+        return Collections.unmodifiableSet(images);
+    }
+
+    public UUID addImage(final String imageName) {
+        requireNonNull(imageName, "Product image name cannot be null");
+        final Image image = new Image(imageName);
+        this.images.add(image);
+        if (this.mainImage == null) {
+            this.setMainImage(image);
+        }
+        return image.getId();
+    }
+
+    public void changeMainImage(final UUID imageId) {
+        requireNonNull(imageId, "Product image id cannot be null");
+        final Image image = getImageById(imageId);
+        this.setMainImage(image);
+    }
+
+    public void removeImage(final UUID imageId) {
+        requireNonNull(imageId, "Product image id cannot be null");
+        final Image image = getImageById(imageId);
+        this.images.remove(image);
+        if (Objects.equals(image.getId(), this.mainImage.getId())) {
+            this.setMainImage(this.images.stream().findFirst().orElse(null));
+        }
+    }
+
+    public @NonNull Image getImageById(final UUID imageId) {
+        return this.getImage(imageId)
+                .orElseThrow(() -> new DomainException(
+                        "Image %s was not found on product %s".formatted(imageId, this.getId())));
     }
 
     public void disable() {

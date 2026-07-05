@@ -11,4 +11,6 @@ public interface ProductRepository extends MongoRepository<Product, UUID> {
 
     List<Product> findAllByEnabled(Boolean enabled);
 
+    boolean existsByImagesName(String imagesName);
+
 }

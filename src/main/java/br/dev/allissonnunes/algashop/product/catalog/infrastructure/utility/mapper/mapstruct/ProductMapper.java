@@ -2,20 +2,22 @@ package br.dev.allissonnunes.algashop.product.catalog.infrastructure.utility.map
 
 import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductDetailOutput;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.product.Product;
+import org.jspecify.annotations.Nullable;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.core.convert.converter.Converter;
 
 public interface ProductMapper {
 
-    @Mapper(uses = { Tools.class })
+    @Mapper(uses = { Tools.class, ImageMapper.ToImageOutput.class })
     interface ToProductDetailOutput extends Converter<Product, ProductDetailOutput> {
 
         @Mapping(target = "addedAt", source = "createdAt")
         @Mapping(target = "hasDiscount", expression = "java(source.hasDiscount())")
         @Mapping(target = "slug", source = "name", qualifiedByName = "slugify")
         @Override
-        ProductDetailOutput convert(Product source);
+        @Nullable
+        ProductDetailOutput convert(@Nullable Product source);
 
     }
 
