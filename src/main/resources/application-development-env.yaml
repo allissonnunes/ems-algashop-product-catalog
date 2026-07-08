@@ -3,6 +3,7 @@ logging:
     org.mongodb.driver.protocol.command: DEBUG
     org.mongodb.driver.protocol.query: DEBUG
     org.mongodb.driver.connection: DEBUG
+    org.springframework.security: DEBUG
 
 server.port: 8083
 
@@ -22,7 +23,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://127.0.0.1:8081
+          issuer-uri: http://localhost:8081
 
 algashop:
   dataloader:
