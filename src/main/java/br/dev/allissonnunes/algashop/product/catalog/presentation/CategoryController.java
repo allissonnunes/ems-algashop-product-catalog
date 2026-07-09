@@ -6,6 +6,7 @@ import br.dev.allissonnunes.algashop.product.catalog.application.category.manage
 import br.dev.allissonnunes.algashop.product.catalog.application.category.query.CategoryDetailOutput;
 import br.dev.allissonnunes.algashop.product.catalog.application.category.query.CategoryFilter;
 import br.dev.allissonnunes.algashop.product.catalog.application.category.query.CategoryQueryService;
+import br.dev.allissonnunes.algashop.product.catalog.infrastructure.security.SecurityAnnotations;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.CacheControl;
@@ -29,6 +30,31 @@ class CategoryController {
 
     private final CategoryManagementApplicationService categoryManagementApplicationService;
 
+    @SecurityAnnotations.CanWriteCategories
+    @PostMapping
+    ResponseEntity<CategoryDetailOutput> createCategory(@RequestBody final @Valid CategoryInput input) {
+        final UUID categoryId = categoryManagementApplicationService.create(input);
+        final CategoryDetailOutput categoryDetailOutput = categoryQueryService.findById(categoryId);
+
+        final var location = fromCurrentRequestUri().path("/{categoryId}")
+                .buildAndExpand(categoryDetailOutput.id())
+                .toUri();
+
+        return ResponseEntity.created(location).body(categoryDetailOutput);
+    }
+
+    @SecurityAnnotations.CanReadCategories
+    @GetMapping("/{categoryId}")
+    ResponseEntity<CategoryDetailOutput> findCategory(@PathVariable final UUID categoryId) {
+        final CategoryDetailOutput categoryDetailOutput = categoryQueryService.findById(categoryId);
+        return ResponseEntity.ok()
+                .cacheControl(CacheControl.maxAge(Duration.ofMinutes(1L)).cachePublic())
+                .eTag("category:id:" + categoryDetailOutput.id() + ":v:" + categoryDetailOutput.version())
+                .lastModified(categoryDetailOutput.lastModifiedAt())
+                .body(categoryDetailOutput);
+    }
+
+    @SecurityAnnotations.CanReadCategories
     @GetMapping
     ResponseEntity<PageModel<CategoryDetailOutput>> findCategories(final CategoryFilter filter, final WebRequest request) {
         if (!filter.isCacheable()) {
@@ -48,28 +74,7 @@ class CategoryController {
                 .body(result);
     }
 
-    @PostMapping
-    ResponseEntity<CategoryDetailOutput> createCategory(@RequestBody final @Valid CategoryInput input) {
-        final UUID categoryId = categoryManagementApplicationService.create(input);
-        final CategoryDetailOutput categoryDetailOutput = categoryQueryService.findById(categoryId);
-
-        final var location = fromCurrentRequestUri().path("/{categoryId}")
-                .buildAndExpand(categoryDetailOutput.id())
-                .toUri();
-
-        return ResponseEntity.created(location).body(categoryDetailOutput);
-    }
-
-    @GetMapping("/{categoryId}")
-    ResponseEntity<CategoryDetailOutput> findCategory(@PathVariable final UUID categoryId) {
-        final CategoryDetailOutput categoryDetailOutput = categoryQueryService.findById(categoryId);
-        return ResponseEntity.ok()
-                .cacheControl(CacheControl.maxAge(Duration.ofMinutes(1L)).cachePublic())
-                .eTag("category:id:" + categoryDetailOutput.id() + ":v:" + categoryDetailOutput.version())
-                .lastModified(categoryDetailOutput.lastModifiedAt())
-                .body(categoryDetailOutput);
-    }
-
+    @SecurityAnnotations.CanWriteCategories
     @PutMapping("/{categoryId}")
     ResponseEntity<CategoryDetailOutput> updateCategory(@PathVariable final UUID categoryId, @RequestBody final @Valid CategoryInput input) {
         categoryManagementApplicationService.update(categoryId, input);
@@ -77,6 +82,7 @@ class CategoryController {
         return ResponseEntity.ok(categoryDetailOutput);
     }
 
+    @SecurityAnnotations.CanWriteCategories
     @DeleteMapping("/{categoryId}")
     ResponseEntity<Void> deleteCategory(@PathVariable final UUID categoryId) {
         categoryManagementApplicationService.disable(categoryId);

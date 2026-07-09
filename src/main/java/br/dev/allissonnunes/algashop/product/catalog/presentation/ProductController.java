@@ -8,6 +8,7 @@ import br.dev.allissonnunes.algashop.product.catalog.application.product.query.P
 import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductQueryService;
 import br.dev.allissonnunes.algashop.product.catalog.application.product.query.ProductSummaryOutput;
 import br.dev.allissonnunes.algashop.product.catalog.domain.model.category.CategoryNotFoundException;
+import br.dev.allissonnunes.algashop.product.catalog.infrastructure.security.SecurityAnnotations;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.CacheControl;
@@ -29,6 +30,7 @@ class ProductController {
 
     private final ProductQueryService productQueryService;
 
+    @SecurityAnnotations.CanWriteProducts
     @PostMapping
     ResponseEntity<ProductDetailOutput> createProduct(@RequestBody final @Valid ProductInput input) {
         try {
@@ -44,6 +46,7 @@ class ProductController {
         }
     }
 
+    @SecurityAnnotations.CanReadProducts
     @GetMapping("/{productId}")
     ResponseEntity<ProductDetailOutput> findProductById(@PathVariable final UUID productId) {
         final ProductDetailOutput productDetailOutput = productQueryService.findById(productId);
@@ -54,34 +57,40 @@ class ProductController {
                 .body(productDetailOutput);
     }
 
+    @SecurityAnnotations.CanReadProducts
     @GetMapping
     ResponseEntity<PageModel<ProductSummaryOutput>> findProducts(final ProductFilter filter) {
         return ResponseEntity.ok(productQueryService.filter(filter));
     }
 
+    @SecurityAnnotations.CanWriteProducts
     @PutMapping("/{productId}")
     ResponseEntity<ProductDetailOutput> updateProductById(@PathVariable final UUID productId, @RequestBody final @Valid ProductInput input) {
         return ResponseEntity.ok(productManagementApplicationService.update(productId, input));
     }
 
+    @SecurityAnnotations.CanWriteProducts
     @DeleteMapping("/{productId}/enable")
     ResponseEntity<?> disable(@PathVariable final UUID productId) {
         productManagementApplicationService.disable(productId);
         return ResponseEntity.noContent().build();
     }
 
+    @SecurityAnnotations.CanWriteProducts
     @PutMapping("/{productId}/enable")
     ResponseEntity<?> enable(@PathVariable final UUID productId) {
         productManagementApplicationService.enable(productId);
         return ResponseEntity.noContent().build();
     }
 
+    @SecurityAnnotations.CanWriteProductsStock
     @PostMapping("/{productId}/restock")
     ResponseEntity<?> restock(@PathVariable final UUID productId, @RequestBody final @Valid ProductQuantityModel quantityModel) {
         productManagementApplicationService.restock(productId, quantityModel.quantity());
         return ResponseEntity.noContent().build();
     }
 
+    @SecurityAnnotations.CanWriteProductsStock
     @PostMapping("/{productId}/withdraw")
     ResponseEntity<?> withdraw(@PathVariable final UUID productId, @RequestBody final @Valid ProductQuantityModel quantityModel) {
         productManagementApplicationService.withdraw(productId, quantityModel.quantity());

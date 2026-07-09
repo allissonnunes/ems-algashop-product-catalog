@@ -6,6 +6,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.springframework.context.MessageSource;
 import org.springframework.http.*;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -47,7 +48,19 @@ class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         problemDetail.setDetail(ex.getMessage());
         problemDetail.setType(URI.create("/errors/unprocessable-content"));
 
-        return this.handleExceptionInternal(ex, problemDetail, new HttpHeaders(), unprocessableContent, request);
+        return super.handleExceptionInternal(ex, problemDetail, new HttpHeaders(), unprocessableContent, request);
+    }
+
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<Object> handleAuthorizationDeniedException(final AuthorizationDeniedException ex, final @NonNull WebRequest request) {
+        final HttpStatus forbidden = HttpStatus.FORBIDDEN;
+
+        final ProblemDetail problemDetail = ProblemDetail.forStatus(forbidden);
+        problemDetail.setTitle(forbidden.getReasonPhrase());
+        problemDetail.setDetail(ex.getMessage());
+        problemDetail.setType(URI.create("/errors/forbidden"));
+
+        return super.handleExceptionInternal(ex, problemDetail, new HttpHeaders(), forbidden, request);
     }
 
     @ExceptionHandler(Exception.class)
