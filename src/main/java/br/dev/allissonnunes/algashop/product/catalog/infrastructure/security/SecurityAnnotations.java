@@ -28,7 +28,7 @@ public interface SecurityAnnotations {
     @Retention(RetentionPolicy.RUNTIME)
     @Inherited
     @Documented
-    @PreAuthorize("hasAuthority('SCOPE_products:stock:write')")
+    @PreAuthorize("hasAuthority('SCOPE_products:stock:write') and hasRole('MANAGER')")
     @interface CanWriteProductsStock {
 
     }
